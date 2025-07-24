@@ -37,9 +37,11 @@ char *get_next_line(int fd)
 		str = malloc(BUFFER_SIZE + 1);
 		str[0] = 0;
 	}
-	line = malloc(BUFFER_SIZE + 1);
 	if (!str)
 		return (NULL);
+		line = malloc(BUFFER_SIZE + 1);
+	if(!line)
+		return (free(line), NULL);
 	if (read(fd, line, 0) == -1)
 		return (free(line), free(str), str = NULL, NULL);
 	i = read(fd, line, BUFFER_SIZE);
@@ -50,26 +52,20 @@ char *get_next_line(int fd)
 		str = ft_strjoin(str, line);
 		free(tmp);
 		if (ft_strchr(str, '\n'))
-		{
-			tmp = line;
-			line = ft_substr(str, 0, ft_strlen_chr(str, '\n'));
-			free(tmp);
-			tmp = str;
-			str = ft_substr(str, ft_strlen_chr(str, '\n'), ft_strlen(str));
-			free(tmp);
-			return(line);
-		}
+			break;
 		i = read(fd, line, BUFFER_SIZE);
 	}
-	if(i == 0 && str && str[i])
+	if (str && str[0])
 	{
 		tmp = line;
-		line = str;
+		line = ft_substr(str, 0, ft_strlen_chr(str, '\n') + 1);
 		free(tmp);
-		str = NULL;
+		tmp = str;
+		str = ft_strdup(ft_strchr(str, '\n') + 1);
+		free(tmp);
 		return (line);
 	}
-	return (NULL);
+	return (free(line), NULL);
 }
 
 
@@ -79,9 +75,17 @@ int main(void)
 	char *s;
 	i = open("map.cub", O_RDONLY);
 	s = get_next_line(i);
-	printf("%s", s);
+	printf("return |%s", s);
+	free(s);
 	s = get_next_line(i);
-	printf("%s", s);
+	printf("return |%s", s);
+	free(s);
 	s = get_next_line(i);
-	printf("%s", s);
+	printf("return |%s", s);
+	free(s);
+	s = get_next_line(i);
+	printf("return |%s", s);
+	free(s);
+
+
 }
