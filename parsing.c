@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:25:08 by aelbour           #+#    #+#             */
-/*   Updated: 2025/07/22 11:25:15 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/07/23 13:01:28 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,17 @@ int	store_map_infos(t_game *game, int map_part, char *line)
 	}
 	return (1);
 }
+void find_angle(t_game *game)
+{
+	if (game->player.dir == "N")
+		game->player.angle = M_PI_2 * 3;
+	if (game->player.dir == "S")
+		game->player.angle = M_PI_2;
+	if (game->player.dir == "E")
+		game->player.angle = 0;
+	if (game->player.dir == "W")
+		game->player.angle = M_PI;
+}
 
 char	**parse_map(char *str, t_game *game)
 {
@@ -109,12 +120,20 @@ char	**parse_map(char *str, t_game *game)
 				found = 1;
 				break;
 			}
-			j++;
+			if(!found)
+				j++;
 		}
 		if(!found)
 			i++;
 	}
-	
+	map_2d[i][j] = '0';
+	game->player.x = j + 0.5;
+	game->player.y = i + 0.5;
+	flood_walls_check(map_2d, i, j, game);
+	find_angle(game);
+	if(!game->map.is_valid)
+		return (NULL);
+	return (map_2d);
 }
 
 void	*extract_data(int fd, t_game *game)
@@ -174,12 +193,29 @@ int	is_valid_extension(char *filename, char *identifier)
 	return (!filename[j - i]);
 }
 
+void init_my_struct(t_game *game)
+{
+	game->ceiling_color = -1;
+	game->floor_color = -1;
+	game->player.angle = -1;
+	game->player.dir = 0;
+	game->player.x = -1;
+	game->player.y = -1;
+	game->map.grid = NULL;
+	game->map.is_valid = 1;
+	game->textures.no = NULL;
+	game->textures.so = NULL;
+	game->textures.we = NULL;
+	game->textures.ea = NULL;
+}
+
 int	main(int ac, char **av)
 {
 	int				fd;
 	t_game			game;
 	unsigned int	i;
 
+	init_my_struct(&game);
 	if (ac != 2)
 	{
 		ft_putstr_fd("Error\nplease provide a valid scene description file \

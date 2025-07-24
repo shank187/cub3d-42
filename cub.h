@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:19:39 by aelbour           #+#    #+#             */
-/*   Updated: 2025/07/22 13:11:11 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/07/24 08:19:37 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <math.h>
 
+# define BUFFER_SIZE 1000
 
 typedef struct s_player
 {
@@ -31,8 +33,6 @@ typedef struct s_player
 typedef struct s_map
 {
 	char	**grid;    // the map as a 2D array
-	int		width;
-	int		height;
 	int		is_valid;
 }	t_map;
 
@@ -63,5 +63,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	**ft_split(char const *s, char c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
+void	flood_walls_check(char **arr, int i, int j, t_game *game);
+char	*ft_strchr(const char *s, int c);
 
 #endif
