@@ -6,11 +6,12 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 15:28:47 by aelbour           #+#    #+#             */
-/*   Updated: 2025/07/24 08:28:26 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/07/25 10:14:05 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
 
 int ft_strlen_chr(char *str, char chr)
 {
@@ -35,11 +36,12 @@ char *get_next_line(int fd)
 	if (!str)
 	{
 		str = malloc(BUFFER_SIZE + 1);
-		str[0] = 0;
+		if (str)
+			str[0] = 0;
+		else
+			return (NULL);
 	}
-	if (!str)
-		return (NULL);
-		line = malloc(BUFFER_SIZE + 1);
+	line = malloc(BUFFER_SIZE + 1);
 	if(!line)
 		return (free(line), NULL);
 	if (read(fd, line, 0) == -1)
@@ -61,7 +63,10 @@ char *get_next_line(int fd)
 		line = ft_substr(str, 0, ft_strlen_chr(str, '\n') + 1);
 		free(tmp);
 		tmp = str;
-		str = ft_strdup(ft_strchr(str, '\n') + 1);
+		if (ft_strchr(str, '\n'))
+			str = ft_strdup(ft_strchr(str, '\n') + 1);
+		else 
+			str = NULL;
 		free(tmp);
 		return (line);
 	}
@@ -69,23 +74,18 @@ char *get_next_line(int fd)
 }
 
 
-int main(void)
-{
-	int i = 0;
-	char *s;
-	i = open("map.cub", O_RDONLY);
-	s = get_next_line(i);
-	printf("return |%s", s);
-	free(s);
-	s = get_next_line(i);
-	printf("return |%s", s);
-	free(s);
-	s = get_next_line(i);
-	printf("return |%s", s);
-	free(s);
-	s = get_next_line(i);
-	printf("return |%s", s);
-	free(s);
-
-
-}
+// int main(void)
+// {
+// 	int i = 0;
+// 	char *s;
+// 	i = open("map.cub", O_RDONLY);
+	
+// 	s = get_next_line(i);
+// 	while(s)
+// 	{
+// 		printf("%s", s);
+// 		s = get_next_line(i);
+// 	}
+// 	s = get_next_line(i);
+// 	printf("%s", s);
+// }

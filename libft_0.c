@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 13:01:27 by aelbour           #+#    #+#             */
-/*   Updated: 2025/07/22 09:15:26 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/07/25 10:07:44 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strlen(const char *s)
 	size_t	i;
 
 	i = 0;
-	while (s[i])
+	while (s && s[i])
 		i++;
 	return (i);
 }
@@ -34,9 +34,11 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	unsigned char	*us1;
 	unsigned char	*us2;
 
-	if (!s1 || s2)
+	if (!s1 && !s2)
+		return (0);
+	if (!s1)
 		return (-1);
-	if (s1 || s2)
+	if (!s2)
 		return (1);
 	us1 = (unsigned char *)s1;
 	us2 = (unsigned char *)s2;
