@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 15:28:47 by aelbour           #+#    #+#             */
-/*   Updated: 2025/07/25 10:14:05 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/07/25 11:46:17 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int ft_strlen_chr(char *str, char chr)
 	return (i);
 }
 
-char *get_next_line(int fd)
+char *get_next_line(int fd, t_game *game)
 {
 	static char	*str;
 	char		*tmp;
@@ -39,19 +39,19 @@ char *get_next_line(int fd)
 		if (str)
 			str[0] = 0;
 		else
-			return (NULL);
+			return (clean_parsing_stuff(game) ,exit(1), NULL);
 	}
 	line = malloc(BUFFER_SIZE + 1);
 	if(!line)
 		return (free(line), NULL);
 	if (read(fd, line, 0) == -1)
-		return (free(line), free(str), str = NULL, NULL);
+		return (free(line), free(str), str = NULL, clean_parsing_stuff(game), exit(1), NULL);
 	i = read(fd, line, BUFFER_SIZE);
 	while(i)
 	{
 		line[i] = 0;
 		tmp = str;
-		str = ft_strjoin(str, line);
+		str = ft_strjoin(str, line, game);
 		free(tmp);
 		if (ft_strchr(str, '\n'))
 			break;
@@ -60,11 +60,11 @@ char *get_next_line(int fd)
 	if (str && str[0])
 	{
 		tmp = line;
-		line = ft_substr(str, 0, ft_strlen_chr(str, '\n') + 1);
+		line = ft_substr(str, 0, ft_strlen_chr(str, '\n') + 1, game);
 		free(tmp);
 		tmp = str;
 		if (ft_strchr(str, '\n'))
-			str = ft_strdup(ft_strchr(str, '\n') + 1);
+			str = ft_strdup(ft_strchr(str, '\n') + 1, game);
 		else 
 			str = NULL;
 		free(tmp);

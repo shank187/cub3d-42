@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 09:53:49 by aelbour           #+#    #+#             */
-/*   Updated: 2025/07/22 11:45:41 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/07/25 11:45:56 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	check_crash(char **arr, size_t i)
 	return (1);
 }
 
-static int	ft_store(char **arr, const char *s, char c, size_t cols)
+static int	ft_store(char **arr, const char *s, char c, size_t cols, t_game *game)
 {
 	size_t	i;
 	size_t	j;
@@ -72,7 +72,7 @@ static int	ft_store(char **arr, const char *s, char c, size_t cols)
 	{
 		if (s[i] == c || !s[i])
 		{
-			arr[j] = ft_substr(s, l, i - l);
+			arr[j] = ft_substr(s, l, i - l, game);
 			if (!check_crash(arr, j))
 				return (0);
 			skip_seps(&i, s, c);
@@ -85,7 +85,7 @@ static int	ft_store(char **arr, const char *s, char c, size_t cols)
 	return (1);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c, t_game *game)
 {
 	size_t	cols;
 	char	**arr;
@@ -95,11 +95,11 @@ char	**ft_split(char const *s, char c)
 	cols = count_cols(s, c);
 	arr = (char **)malloc((cols + 1) * sizeof(char *));
 	if (!arr)
-		return (NULL);
+		return (clean_parsing_stuff(game), exit(1), NULL);
 	arr[cols] = NULL;
 	if (cols)
 	{
-		if (ft_store(arr, s, c, cols))
+		if (ft_store(arr, s, c, cols, game))
 			return (arr);
 		else
 			return (NULL);

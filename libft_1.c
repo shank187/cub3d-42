@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 10:15:11 by aelbour           #+#    #+#             */
-/*   Updated: 2025/07/25 09:01:44 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/07/25 11:43:51 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 	return (i + ft_strlen((char *)src) - j);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2, t_game *game)
 {
 	size_t	siz;
 	char	*c;
@@ -90,13 +90,13 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	siz = ft_strlen((char *) s1) + ft_strlen((char *) s2) + 1;
 	c = (char *) malloc(siz);
 	if (!c)
-		return (NULL);
+		return (clean_parsing_stuff(game), exit(1), NULL);
 	ft_strlcpy(c, s1, ft_strlen((char *) s1) + 1);
 	ft_strlcat(c, s2, siz);
 	return (c);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, size_t len, t_game *game)
 {
 	size_t	s_len;
 	char	*c;
@@ -106,14 +106,14 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (NULL);
 	s_len = ft_strlen((char *) s);
 	if (start > s_len)
-		return (ft_strdup(""));
+		return (ft_strdup("", game));
 	s_len = ft_strlen((char *) &s[start]);
 	size = len + 1;
 	if (s_len < len)
 		size = s_len + 1;
 	c = (char *) malloc(size);
 	if (!c)
-		return (NULL);
+		return (clean_parsing_stuff(game), exit(1), NULL);
 	ft_strlcpy(c, &s[start], size);
 	return (c);
 }

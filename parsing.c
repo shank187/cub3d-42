@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:25:08 by aelbour           #+#    #+#             */
-/*   Updated: 2025/07/25 10:50:01 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/07/25 11:45:14 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,22 @@ int	store_map_infos(t_game *game, int map_part, char *line)
 {
 	if (!ft_strncmp(line, "NO ", 3) && !game->textures.no && \
 			ft_strchr(line, '.'))
-		game->textures.no = ft_strdup(ft_strchr(line, '.'));
+		game->textures.no = ft_strdup(ft_strchr(line, '.'), game);
 	else if (!ft_strncmp(line, "SO ", 3) && !game->textures.so && \
 			ft_strchr(line, '.'))
-		game->textures.so = ft_strdup(ft_strchr(line, '.'));
+		game->textures.so = ft_strdup(ft_strchr(line, '.'), game);
 	else if (!ft_strncmp(line, "WE ", 3) && !game->textures.we && \
 			ft_strchr(line, '.'))
-		game->textures.we = ft_strdup(ft_strchr(line, '.'));
+		game->textures.we = ft_strdup(ft_strchr(line, '.'), game);
 	else if (!ft_strncmp(line, "EA ", 3) && !game->textures.ea && \
 			ft_strchr(line, '.'))
-		game->textures.ea = ft_strdup(ft_strchr(line, '.'));
+		game->textures.ea = ft_strdup(ft_strchr(line, '.'), game);
 	else if (!ft_strncmp(line, "F ", 2) && game->floor_color == -1)
 		game->floor_color = parse_color_rgb(line);
 	else if (!ft_strncmp(line, "C ", 2) && game->ceiling_color == -1)
 		game->ceiling_color = parse_color_rgb(line);
 	else
-		return (printf("nothing stored here\n"), 0);
+		return (0);
 	return (1);
 }
 
@@ -46,14 +46,14 @@ void	*extract_and_store_data(int fd, t_game *game)
 	char	*tmp;
 
 	map_part = 0;
-	line = get_next_line(fd);
+	line = get_next_line(fd, game);
 	map = NULL;
 	while (line)
 	{
 		if (!map_part && !ft_strncmp("\n", line, 13))
 		{
 			free(line);
-			line = get_next_line(fd);
+			line = get_next_line(fd, game);
 			continue ;
 		}
 		else if (ft_strncmp("\n", line, 13) && !map_part && game->textures.ea \
@@ -63,22 +63,22 @@ void	*extract_and_store_data(int fd, t_game *game)
 		if (!map_part && ft_strncmp("\n", line, 13))
 		{
 			if (!store_map_infos(game, map_part, line))
-				return (free(line), NULL);			
+				return (free(line), ft_putstr_fd("Error\nINCOMPLET | INCORRECT INFOS.\n", 2), NULL);
 		}
 		else if (map_part && ft_strncmp("\n", line, 13) && line)
 		{
 			tmp = map;
-			map = ft_strjoin(map, line);
+			map = ft_strjoin(map, line, game);
 			free(tmp);  
 		}
 		else
-			return (free(line), NULL);
+			return (free(line), ft_putstr_fd("Error\nINCOMPLET | INCORRECT INFOS.\n", 2), NULL);
 		free(line);
-		line = get_next_line(fd);
+		line = get_next_line(fd, game);
 	}
 	game->map.grid = parse_map(map, game);
 	if(!game->map.grid)
-		return (NULL);
+		return (ft_putstr_fd("Error\nINVALID MAP!!.\n", 2), NULL);
 	return(game);
 }
 
@@ -166,35 +166,50 @@ void show_data_strored(t_game *game)
 }
 
 
-
-int	main(int ac, char **av)
+int parse_inputs(t_game *game, int ac, char **av)
 {
 	int				fd;
-	t_game			game;
 	unsigned int	i;
 
-	init_my_struct(&game);
+	init_my_struct(game);
 	if (ac != 2)
 	{
 		ft_putstr_fd("Error\nplease provide a valid scene description file \
 with the .cub extension as first argument.\n", 2);
-		return (1);
+		return (0);
 	}
-	i = parse_color_rgb(av[1]);
 	if (!is_valid_extension(av[1], ".cub"))
-	{
-		ft_putstr_fd("not valid .cub extension\n", 2);
-		return (1);
-	}
+		return (ft_putstr_fd("INVALID .cub extension.\n", 2), 0);
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
+		return (ft_putstr_fd("Error\nInvalid file.\n", 2), 0);
+	if(extract_and_store_data(fd, game))
+		return (clean_data(game), 1);
+	return (0);
+}
+
+void clean_parsing_stuff(t_game *game)
+{
+	int i;
+	free(game->textures.ea);
+	free(game->textures.so);
+	free(game->textures.no);
+	free(game->textures.we);
+	i = -1;
+	while(game->map.grid && game->map.grid[++i])
 	{
-		ft_putstr_fd("Error\nInvalid file\n", 2);
-		return (1);
+		free(game->map.grid[i]);
 	}
-	if(extract_and_store_data(fd, &game))
-	{
-		clean_data(&game);
+	free(game->map.grid);
+}
+
+int	main(int ac, char **av)
+{
+	t_game	game;
+
+	if (parse_inputs(&game, ac, av))
 		show_data_strored(&game);
-	}
+	else
+		return(0);
+	return (0);
 }

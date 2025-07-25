@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 10:04:28 by aelbour           #+#    #+#             */
-/*   Updated: 2025/07/25 10:42:38 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/07/25 11:46:44 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ char	**parse_map(char *str, t_game *game)
 	}
 	if (str[i] || !game->player.dir)
 		return (NULL);
-	map_2d = ft_split(str, '\n');
+	map_2d = ft_split(str, '\n', game);
 	i = 0;
 	while(map_2d[i] && !found)
 	{

@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 13:01:27 by aelbour           #+#    #+#             */
-/*   Updated: 2025/07/25 10:07:44 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/07/25 11:41:52 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (0);
 }
 
-char	*ft_strdup(const char *s1)
+char	*ft_strdup(const char *s1, t_game *game)
 {
 	char	*c;
 	size_t	i;
@@ -62,7 +62,7 @@ char	*ft_strdup(const char *s1)
 	i = 0;
 	c = (char *) malloc(l + 1);
 	if (!c)
-		return (NULL);
+		return (clean_parsing_stuff(game), exit(1), NULL);
 	ft_strlcpy(c, s1, l + 1);
 	return (c);
 }
