@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 10:15:11 by aelbour           #+#    #+#             */
-/*   Updated: 2025/07/25 11:43:51 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/07/25 12:08:53 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ char	*ft_strjoin(char const *s1, char const *s2, t_game *game)
 		s1 = "";
 	if (!s2)
 		s2 = "";
-
 	siz = ft_strlen((char *) s1) + ft_strlen((char *) s2) + 1;
 	c = (char *) malloc(siz);
 	if (!c)

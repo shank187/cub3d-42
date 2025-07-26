@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 09:53:49 by aelbour           #+#    #+#             */
-/*   Updated: 2025/07/25 11:45:56 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/07/25 13:20:41 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	check_crash(char **arr, size_t i)
 	return (1);
 }
 
-static int	ft_store(char **arr, const char *s, char c, size_t cols, t_game *game)
+static int	ft_store(t_split *split)
 {
 	size_t	i;
 	size_t	j;
@@ -66,16 +66,16 @@ static int	ft_store(char **arr, const char *s, char c, size_t cols, t_game *game
 
 	j = 0;
 	i = 0;
-	skip_seps(&i, s, c);
+	skip_seps(&i, split->s, split->c);
 	l = i;
-	while (j < cols)
+	while (j < split->cols)
 	{
-		if (s[i] == c || !s[i])
+		if (split->s[i] == split->c || !split->s[i])
 		{
-			arr[j] = ft_substr(s, l, i - l, game);
-			if (!check_crash(arr, j))
+			split->arr[j] = ft_substr(split->s, l, i - l, split->game);
+			if (!check_crash(split->arr, j))
 				return (0);
-			skip_seps(&i, s, c);
+			skip_seps(&i, split->s, split->c);
 			l = i;
 			j++;
 		}
@@ -87,22 +87,24 @@ static int	ft_store(char **arr, const char *s, char c, size_t cols, t_game *game
 
 char	**ft_split(char const *s, char c, t_game *game)
 {
-	size_t	cols;
-	char	**arr;
+	t_split	split;
 
+	split.s = s;
+	split.c = c;
+	split.game = game;
 	if (!s)
 		return (NULL);
-	cols = count_cols(s, c);
-	arr = (char **)malloc((cols + 1) * sizeof(char *));
-	if (!arr)
+	split.cols = count_cols(s, c);
+	split.arr = (char **)malloc((split.cols + 1) * sizeof(char *));
+	if (!split.arr)
 		return (clean_parsing_stuff(game), exit(1), NULL);
-	arr[cols] = NULL;
-	if (cols)
+	split.arr[split.cols] = NULL;
+	if (split.cols)
 	{
-		if (ft_store(arr, s, c, cols, game))
-			return (arr);
+		if (ft_store(&split))
+			return (split.arr);
 		else
 			return (NULL);
 	}
-	return (arr);
+	return (split.arr);
 }
