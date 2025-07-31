@@ -23,10 +23,10 @@ void show_data_strored(t_game *game)
 {
 
 	printf("player initial pos x = %f | y = %f\nplayer initial dir %c\nplayer angle %f\n", game->player.x, game->player.y, game->player.dir, game->player.angle);
-	printf("\nnorth texture |%s|\n", game->textures.no);
-	printf("south texture |%s|\n", game->textures.so);
-	printf("west texture |%s|\n", game->textures.we);
-	printf("east texture |%s|\n\n", game->textures.ea);
+	printf("\nnorth texture |%s|\n", game->tex.no);
+	printf("south texture |%s|\n", game->tex.so);
+	printf("west texture |%s|\n", game->tex.we);
+	printf("east texture |%s|\n\n", game->tex.ea);
 	int  i = -1;
 	while(game->map.grid[++i])
 	{

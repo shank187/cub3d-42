@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abdelhamid <abdelhamid@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:01:26 by aelbour           #+#    #+#             */
-/*   Updated: 2025/07/26 10:55:43 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/07/30 12:38:37 by abdelhamid       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static int	is_map_start(t_game *game)
 {
-	return (game->textures.ea && game->textures.no
-		&& game->textures.so && game->textures.we
+	return (game->tex.ea && game->tex.no
+		&& game->tex.so && game->tex.we
 		&& game->ceiling_color != UINT32_MAX
 		&& game->floor_color != UINT32_MAX);
 }

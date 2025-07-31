@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_0.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abdelhamid <abdelhamid@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 10:04:28 by aelbour           #+#    #+#             */
-/*   Updated: 2025/07/26 10:45:05 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/07/31 11:29:55 by abdelhamid       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	find_angle(t_game *game)
-{
-	if (game->player.dir == 'N')
-		game->player.angle = M_PI_2 * 3;
-	if (game->player.dir == 'S')
-		game->player.angle = M_PI_2;
-	if (game->player.dir == 'E')
-		game->player.angle = 0;
-	if (game->player.dir == 'W')
-		game->player.angle = M_PI;
-}
+// void	find_angle(t_game *game)
+// {
+// 	if (game->player.dir == 'N')
+// 		game->player.angle = M_PI_2 * 3;
+// 	if (game->player.dir == 'S')
+// 		game->player.angle = M_PI_2;
+// 	if (game->player.dir == 'E')
+// 		game->player.angle = 0;
+// 	if (game->player.dir == 'W')
+// 		game->player.angle = M_PI;
+// }
 
 void	flood_walls_check(char **arr, int i, int j, t_game *game)
 {

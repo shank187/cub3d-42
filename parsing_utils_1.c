@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abdelhamid <abdelhamid@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 09:43:04 by aelbour           #+#    #+#             */
-/*   Updated: 2025/07/26 10:55:02 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/07/30 12:37:38 by abdelhamid       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,20 @@ void	init_my_struct(t_game *game)
 	game->player.y = -1;
 	game->map.grid = NULL;
 	game->map.is_valid = 1;
-	game->textures.no = NULL;
-	game->textures.so = NULL;
-	game->textures.we = NULL;
-	game->textures.ea = NULL;
+	game->tex.no = NULL;
+	game->tex.so = NULL;
+	game->tex.we = NULL;
+	game->tex.ea = NULL;
 }
 
 void	clean_parsing_stuff(t_game *game)
 {
 	int	i;
 
-	free(game->textures.ea);
-	free(game->textures.so);
-	free(game->textures.no);
-	free(game->textures.we);
+	free(game->tex.ea);
+	free(game->tex.so);
+	free(game->tex.no);
+	free(game->tex.we);
 	i = -1;
 	while (game->map.grid && game->map.grid[++i])
 	{
@@ -46,31 +46,31 @@ void	clean_parsing_stuff(t_game *game)
 
 void	clean_data(t_game *game)
 {
-	ft_replace_chr(game->textures.no, NULL, '\n', 0);
-	ft_replace_chr(game->textures.so, NULL, '\n', 0);
-	ft_replace_chr(game->textures.we, NULL, '\n', 0);
-	ft_replace_chr(game->textures.ea, NULL, '\n', 0);
-	ft_replace_chr(game->textures.no, NULL, ' ', 0);
-	ft_replace_chr(game->textures.so, NULL, ' ', 0);
-	ft_replace_chr(game->textures.we, NULL, ' ', 0);
-	ft_replace_chr(game->textures.ea, NULL, ' ', 0);
+	ft_replace_chr(game->tex.no, NULL, '\n', 0);
+	ft_replace_chr(game->tex.so, NULL, '\n', 0);
+	ft_replace_chr(game->tex.we, NULL, '\n', 0);
+	ft_replace_chr(game->tex.ea, NULL, '\n', 0);
+	ft_replace_chr(game->tex.no, NULL, ' ', 0);
+	ft_replace_chr(game->tex.so, NULL, ' ', 0);
+	ft_replace_chr(game->tex.we, NULL, ' ', 0);
+	ft_replace_chr(game->tex.ea, NULL, ' ', 0);
 	ft_replace_chr(NULL, game->map.grid, 'x', '0');
 }
 
 int	store_map_infos(t_game *game, char *line)
 {
-	if (!ft_strncmp(line, "NO ", 3) && !game->textures.no && \
+	if (!ft_strncmp(line, "NO ", 3) && !game->tex.no && \
 			ft_strchr(line, '.'))
-		game->textures.no = ft_strdup(ft_strchr(line, '.'), game);
-	else if (!ft_strncmp(line, "SO ", 3) && !game->textures.so && \
+		game->tex.no = ft_strdup(ft_strchr(line, '.'), game);
+	else if (!ft_strncmp(line, "SO ", 3) && !game->tex.so && \
 			ft_strchr(line, '.'))
-		game->textures.so = ft_strdup(ft_strchr(line, '.'), game);
-	else if (!ft_strncmp(line, "WE ", 3) && !game->textures.we && \
+		game->tex.so = ft_strdup(ft_strchr(line, '.'), game);
+	else if (!ft_strncmp(line, "WE ", 3) && !game->tex.we && \
 			ft_strchr(line, '.'))
-		game->textures.we = ft_strdup(ft_strchr(line, '.'), game);
-	else if (!ft_strncmp(line, "EA ", 3) && !game->textures.ea && \
+		game->tex.we = ft_strdup(ft_strchr(line, '.'), game);
+	else if (!ft_strncmp(line, "EA ", 3) && !game->tex.ea && \
 			ft_strchr(line, '.'))
-		game->textures.ea = ft_strdup(ft_strchr(line, '.'), game);
+		game->tex.ea = ft_strdup(ft_strchr(line, '.'), game);
 	else if (!ft_strncmp(line, "F ", 2) && game->floor_color == UINT32_MAX)
 		game->floor_color = parse_color_rgb(line);
 	else if (!ft_strncmp(line, "C ", 2) && game->ceiling_color == UINT32_MAX)

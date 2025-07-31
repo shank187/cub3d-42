@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abdelhamid <abdelhamid@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:22:33 by aelbour           #+#    #+#             */
-/*   Updated: 2025/07/26 10:23:15 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/07/31 11:39:25 by abdelhamid       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	**parse_map(char *str, t_game *game)
 		return (NULL);
 	set_player_position(map, game);
 	flood_walls_check(map, (int)game->player.y, (int)game->player.x, game);
-	find_angle(game);
+	// find_angle(game);
 	if (!game->map.is_valid)
 		return (NULL);
 	return (map);

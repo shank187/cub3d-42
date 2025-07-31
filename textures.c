@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub.h"
 
 void	load_texs(t_game *g)
 {

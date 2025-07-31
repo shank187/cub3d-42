@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_0.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abdelhamid <abdelhamid@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 13:01:27 by aelbour           #+#    #+#             */
-/*   Updated: 2025/07/25 11:41:52 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/07/30 14:59:19 by abdelhamid       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 char	*ft_strdup(const char *s1, t_game *game)
 {
 	char	*c;
-	size_t	i;
+	// size_t	i;
 	size_t	l;
 
 	l = ft_strlen((char *) s1);
-	i = 0;
+	// i = 0;
 	c = (char *) malloc(l + 1);
 	if (!c)
 		return (clean_parsing_stuff(game), exit(1), NULL);

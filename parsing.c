@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abdelhamid <abdelhamid@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:25:08 by aelbour           #+#    #+#             */
-/*   Updated: 2025/07/26 10:46:54 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/07/31 11:45:51 by abdelhamid       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,35 @@ with the .cub extension as first argument.\n", 2);
 	return (0);
 }
 
+int map_h(t_map map)
+{
+	int i;
+
+	i = 0;
+	while (map.grid[i])
+		i++;
+	return (i);
+}
+int map_w(t_map map)
+{
+	int i;
+	int j;
+	int max;
+
+	i = 0;
+	j = 0;
+	max = 0;
+	while (map.grid[i])
+	{
+		j = 0;
+		while (map.grid[i][j])
+			j++;
+		if (j > max)
+			max = j;
+		i++;
+	}
+	return (max);
+}
 int	main(int ac, char **av)
 {
 	t_game	game;
@@ -41,5 +70,21 @@ int	main(int ac, char **av)
 		show_data_strored(&game);
 	else
 		return (1);
+	init_game(&game);
+	game.map_h = map_h(game.map);
+	game.map_w = map_w(game.map);
+	
+	game.player.dir_x = -1.0;  // Looking west
+	game.player.dir_y = 0.0;
+	game.player.plane_x = 0.0;
+	game.player.plane_y = 0.66;  // Camera plane
+
+	load_texs(&game);
+	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
+	mlx_hook(game.win, 3, 1L << 1, key_release, &game);
+	mlx_hook(game.win, 17, 0, close_win, &game);
+	mlx_loop_hook(game.mlx, game_loop, &game);
+	mlx_loop(game.mlx);
+	return (0);
 	return (0);
 }
