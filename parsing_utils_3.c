@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:22:33 by aelbour           #+#    #+#             */
-/*   Updated: 2025/07/26 10:23:15 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/07/29 14:50:47 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	is_valid_map_char(char c)
 {
 	return (c == '1' || c == '0' || c == '\n' || c == ' ' || \
-			c == 'N' || c == 'S' || c == 'E' || c == 'W');
+			c == 'N' || c == 'S' || c == 'E' || c == 'W' || c == '2');
 }
 
 static int	set_player_direction(char c, t_game *game)
@@ -40,6 +40,8 @@ static int	validate_and_parse_chars(char *str, t_game *game)
 	{
 		if (str[i] == ' ')
 			str[i] = '1';
+		if (str[i] == '2')
+			str[i] = '0';
 		if (!set_player_direction(str[i], game))
 			return (0);
 		i++;
@@ -78,17 +80,23 @@ static void	set_player_position(char **map, t_game *game)
 
 char	**parse_map(char *str, t_game *game)
 {
+	char	**initial_map;
 	char	**map;
 
-	if (!validate_and_parse_chars(str, game))
+	initial_map = ft_split(str, '\n', game);
+	if (!initial_map)
 		return (NULL);
+	if (!validate_and_parse_chars(str, game))
+		return (free_2d_arr(initial_map), NULL);
 	map = ft_split(str, '\n', game);
 	if (!map)
-		return (NULL);
+		return (free_2d_arr(initial_map), NULL);
 	set_player_position(map, game);
 	flood_walls_check(map, (int)game->player.y, (int)game->player.x, game);
-	find_angle(game);
 	if (!game->map.is_valid)
-		return (NULL);
-	return (map);
+		return (free_2d_arr(initial_map), free(map), NULL);
+	initial_map[(int)game->player.y][(int)game->player.x] = '0';
+	find_angle(game);
+	free_2d_arr(map);
+	return (initial_map);
 }

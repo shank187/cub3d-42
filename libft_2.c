@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:23:23 by aelbour           #+#    #+#             */
-/*   Updated: 2025/07/25 12:09:04 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/07/27 10:17:02 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,15 @@ void	ft_replace_chr(char *s, char **as, char target, char new_chr)
 			if (as[j][i] == target)
 				as[j][i] = new_chr;
 	}
+}
+
+void	free_2d_arr(char **str)
+{
+	int	i;
+
+	i = -1;
+	while (str && str[++i])
+		free(str[i]);
+	if (str)
+		free(str);
 }

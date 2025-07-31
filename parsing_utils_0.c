@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 10:04:28 by aelbour           #+#    #+#             */
-/*   Updated: 2025/07/26 10:45:05 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/07/27 10:08:13 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ unsigned int	process_rgb_seq(char *line, int *i, \
 	while (line[(*i)] == ' ')
 		(*i)++;
 	n = ft_atoi(line, i);
-	if (n >= 0)
+	if (n >= 0 && n <= 256)
 		(*color) = ((*color) << 8) | n;
 	else
 		return (0);
