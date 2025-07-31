@@ -6,7 +6,11 @@
 /*   By: abdelhamid <abdelhamid@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:19:39 by aelbour           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/07/31 11:38:54 by abdelhamid       ###   ########.fr       */
+=======
+/*   Updated: 2025/07/27 10:17:13 by aelbour          ###   ########.fr       */
+>>>>>>> 6bbfd6851c14f6beab176e8cd359423a13515a17
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +154,6 @@ typedef struct s_gnl
 	t_game	*game;
 }	t_gnl;
 
-
 typedef struct s_split
 {
 	size_t		cols;
@@ -186,6 +189,7 @@ int				store_map_infos(t_game *game, char *line);
 int				is_valid_extension(char *filename, char *identifier);
 void			*extract_and_store_data(int fd, t_game *game);
 void			show_data_strored(t_game *game); /////////////////////
+void			free_2d_arr(char **str);
 
 // double find_angle(char direction);
 

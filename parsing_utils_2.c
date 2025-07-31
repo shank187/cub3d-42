@@ -6,7 +6,11 @@
 /*   By: abdelhamid <abdelhamid@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:01:26 by aelbour           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/07/30 12:38:37 by abdelhamid       ###   ########.fr       */
+=======
+/*   Updated: 2025/07/26 11:30:11 by aelbour          ###   ########.fr       */
+>>>>>>> 6bbfd6851c14f6beab176e8cd359423a13515a17
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +85,7 @@ void	*extract_and_store_data(int fd, t_game *game)
 	{
 		result = process_line(line, game, &on_map, &map);
 		if (result == 0)
-			return (NULL);
+			return (free(map), NULL);
 		else if (result != 2)
 			free(line);
 		if (result != 0 && result != 2)
@@ -91,6 +95,6 @@ void	*extract_and_store_data(int fd, t_game *game)
 	}
 	game->map.grid = parse_map(map, game);
 	if (!game->map.grid)
-		return (ft_putstr_fd("Error\nINVALID MAP!!.\n", 2), NULL);
-	return (game);
+		return (ft_putstr_fd("Error\nINVALID MAP!!.\n", 2), free(map), NULL);
+	return (free(map), game);
 }
