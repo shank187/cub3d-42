@@ -128,7 +128,7 @@ int	close_win(t_game *g)
 	int	i;
 
 	i = -1;
-	while (++i < 4)
+	while (++i < 5)
 		if (g->texs[i].img)
 			mlx_destroy_image(g->mlx, g->texs[i].img);
 	if (g->img.img)

@@ -6,11 +6,7 @@
 /*   By: abdelhamid <abdelhamid@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:22:33 by aelbour           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/07/31 11:39:25 by abdelhamid       ###   ########.fr       */
-=======
-/*   Updated: 2025/07/29 14:50:47 by aelbour          ###   ########.fr       */
->>>>>>> 6bbfd6851c14f6beab176e8cd359423a13515a17
+/*   Updated: 2025/07/31 12:00:58 by abdelhamid       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,14 +93,10 @@ char	**parse_map(char *str, t_game *game)
 		return (free_2d_arr(initial_map), NULL);
 	set_player_position(map, game);
 	flood_walls_check(map, (int)game->player.y, (int)game->player.x, game);
-<<<<<<< HEAD
-	// find_angle(game);
-=======
->>>>>>> 6bbfd6851c14f6beab176e8cd359423a13515a17
 	if (!game->map.is_valid)
 		return (free_2d_arr(initial_map), free(map), NULL);
 	initial_map[(int)game->player.y][(int)game->player.x] = '0';
-	find_angle(game);
+	// find_angle(game);
 	free_2d_arr(map);
 	return (initial_map);
 }

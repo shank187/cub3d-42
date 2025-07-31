@@ -2,15 +2,17 @@
 
 void	load_texs(t_game *g)
 {
-	char	*paths[4];
+	char	*paths[5];
 	int		i;
 
+	g->tex.door = "./textures/door.xpm";
 	paths[0] = g->tex.no;
 	paths[1] = g->tex.so;
 	paths[2] = g->tex.we;
 	paths[3] = g->tex.ea;
+	paths[4] = g->tex.door;
 	i = -1;
-	while (++i < 4)
+	while (++i < 5)
 	{
 		g->texs[i].img = mlx_xpm_file_to_image(g->mlx, paths[i],
 				&g->texs[i].width, &g->texs[i].height);

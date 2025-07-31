@@ -6,11 +6,7 @@
 /*   By: abdelhamid <abdelhamid@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:19:39 by aelbour           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/07/31 11:38:54 by abdelhamid       ###   ########.fr       */
-=======
-/*   Updated: 2025/07/27 10:17:13 by aelbour          ###   ########.fr       */
->>>>>>> 6bbfd6851c14f6beab176e8cd359423a13515a17
+/*   Updated: 2025/07/31 13:41:56 by abdelhamid       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +22,7 @@
 #include <stdint.h>
 #include "mlx.h"
 # include <math.h>
+#include <stdbool.h>
 
 // # include <string.h>
 # include <errno.h>
@@ -81,6 +78,7 @@ typedef struct s_player
 
 
 typedef struct s_ray {
+	bool	door;
 	double	cam_x;
 	double	ray_dir_x;
 	double	ray_dir_y;
@@ -114,6 +112,7 @@ typedef struct s_textures
 	char	*so;
 	char	*we;
 	char	*ea;
+	char	*door;
 	// 
 }	t_textures;
 
@@ -131,7 +130,7 @@ typedef struct s_game
 	t_img		img;
 	// t_player	p;
 	t_textures	tex;
-	t_img		texs[4];
+	t_img		texs[5];
 	// char		**map;
 	int			map_w;
 	int			map_h;
@@ -153,6 +152,7 @@ typedef struct s_gnl
 	char	*tmp;
 	t_game	*game;
 }	t_gnl;
+
 
 typedef struct s_split
 {
@@ -189,9 +189,9 @@ int				store_map_infos(t_game *game, char *line);
 int				is_valid_extension(char *filename, char *identifier);
 void			*extract_and_store_data(int fd, t_game *game);
 void			show_data_strored(t_game *game); /////////////////////
-void			free_2d_arr(char **str);
 
 // double find_angle(char direction);
+void	free_2d_arr(char **str);
 
 void	init_game(t_game *g);
 /* Raycasting */

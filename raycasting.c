@@ -43,10 +43,8 @@ void calc_step(t_game *g, t_ray *r)
 
 void dda(t_game *g, t_ray *r)
 {
-	int hit;
-
-	hit = 0;
-	while (hit == 0)
+	r->door = false;
+	while (1)
 	{
 		if (r->side_x < r->side_y)
 		{
@@ -60,8 +58,15 @@ void dda(t_game *g, t_ray *r)
 			r->map_y += r->step_y;
 			r->side = 1; // south , north
 		}
-		if (r->map_y < 0 || r->map_y >= g->map_h || r->map_x < 0 || r->map_x >= g->map_w || g->map.grid[r->map_y][r->map_x] == '1')
-			hit = 1;
+		if (r->map_y < 0 || r->map_y >= g->map_h || r->map_x < 0 || r->map_x >= g->map_w)
+			break;
+		else if (g->map.grid[r->map_y][r->map_x] == '1')
+			break;
+		else if (g->map.grid[r->map_y][r->map_x] == '2')
+		{
+			r->door = true;
+			break;
+		}
 	}
 }
 
@@ -93,7 +98,9 @@ void draw_line(t_game *g, t_ray *r, int x)
 	double step;
 	double tex_pos;
 
-	if (r->side == 0)
+	if (r->door)
+		tex_num = 4;
+	else if (r->side == 0)
 	{
 		if (r->step_x > 0)
 			tex_num = 2; // EAST

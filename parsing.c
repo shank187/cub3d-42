@@ -6,7 +6,7 @@
 /*   By: abdelhamid <abdelhamid@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:25:08 by aelbour           #+#    #+#             */
-/*   Updated: 2025/07/31 11:45:51 by abdelhamid       ###   ########.fr       */
+/*   Updated: 2025/07/31 14:40:04 by abdelhamid       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ int	main(int ac, char **av)
 	game.player.plane_y = 0.66;  // Camera plane
 
 	load_texs(&game);
+	raycast(&game);
+	mlx_put_image_to_window(game.mlx, game.win, game.img.img, 0, 0);
 	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
 	mlx_hook(game.win, 3, 1L << 1, key_release, &game);
 	mlx_hook(game.win, 17, 0, close_win, &game);

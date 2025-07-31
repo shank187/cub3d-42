@@ -6,7 +6,7 @@
 /*   By: abdelhamid <abdelhamid@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 09:43:04 by aelbour           #+#    #+#             */
-/*   Updated: 2025/07/30 12:37:38 by abdelhamid       ###   ########.fr       */
+/*   Updated: 2025/07/31 13:26:35 by abdelhamid       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	init_my_struct(t_game *game)
 	game->tex.so = NULL;
 	game->tex.we = NULL;
 	game->tex.ea = NULL;
+	game->tex.door = NULL;
 }
 
 void	clean_parsing_stuff(t_game *game)
@@ -36,6 +37,7 @@ void	clean_parsing_stuff(t_game *game)
 	free(game->tex.so);
 	free(game->tex.no);
 	free(game->tex.we);
+	// free(game->tex.door);
 	i = -1;
 	while (game->map.grid && game->map.grid[++i])
 	{
