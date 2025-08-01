@@ -104,6 +104,34 @@ int	key_release(int key, t_game *g)
 	return (0);
 }
 
+void open_the_door(t_game *game)
+{
+    int i = 0;
+    int j;
+
+    while (game->map.grid[i])
+    {
+        j = 0; // j = x , i = y
+        while (game->map.grid[i][j])
+        {
+            if (game->map.grid[i][j] == '2' && 
+                (((int)game->player.x == j && (int)game->player.y == i - 1) || 
+                 ((int)game->player.x == j + 1 && (int)game->player.y == i - 1) || 
+                 ((int)game->player.x == j + 1 && (int)game->player.y == i) ||
+                 ((int)game->player.x == j + 1 && (int)game->player.y == i + 1) ||
+                 ((int)game->player.x == j && (int)game->player.y == i + 1) ||
+                 ((int)game->player.x == j - 1 && (int)game->player.y == i + 1) ||
+                 ((int)game->player.x == j - 1 && (int)game->player.y == i) ||
+                 ((int)game->player.x == j - 1 && (int)game->player.y == i - 1)))
+            {
+                game->map.grid[i][j] = '0';
+            }
+            j++;
+        }
+        i++;
+    }
+}
+
 int	game_loop(t_game *g)
 {
 	double	move_speed;
@@ -117,6 +145,7 @@ int	game_loop(t_game *g)
 	moved += handle_rotation(g, rot_speed);
 	if (moved)
 	{
+		open_the_door(g);
 		raycast(g);
 		mlx_put_image_to_window(g->mlx, g->win, g->img.img, 0, 0);
 	}
