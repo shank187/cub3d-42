@@ -3,25 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_0.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdelhamid <abdelhamid@student.42.fr>      +#+  +:+       +#+        */
+/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 10:04:28 by aelbour           #+#    #+#             */
-/*   Updated: 2025/07/31 11:54:13 by abdelhamid       ###   ########.fr       */
+/*   Updated: 2025/08/02 10:55:30 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-// void	find_angle(t_game *game)
+// void	*ft_fix_sizes(char **arr, char c)
 // {
-// 	if (game->player.dir == 'N')
-// 		game->player.angle = M_PI_2 * 3;
-// 	if (game->player.dir == 'S')
-// 		game->player.angle = M_PI_2;
-// 	if (game->player.dir == 'E')
-// 		game->player.angle = 0;
-// 	if (game->player.dir == 'W')
-// 		game->player.angle = M_PI;
+// 	size_t	max;
+// 	size_t	i;
+// 	size_t	j;
+// 	char	*tmp;
+
+// 	i = 0;
+// 	max = ft_strlen(arr[i]);
+// 	while (arr[++i])
+// 		if (ft_strlen(arr[i]) > max)
+// 			max = ft_strlen(arr[i]);
+	
 // }
 
 void	flood_walls_check(char **arr, int i, int j, t_game *game)

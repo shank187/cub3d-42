@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdelhamid <abdelhamid@student.42.fr>      +#+  +:+       +#+        */
+/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:22:33 by aelbour           #+#    #+#             */
-/*   Updated: 2025/07/31 12:00:58 by abdelhamid       ###   ########.fr       */
+/*   Updated: 2025/08/02 10:39:01 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,6 @@ char	**parse_map(char *str, t_game *game)
 	initial_map[(int)game->player.y][(int)game->player.x] = '0';
 	// find_angle(game);
 	free_2d_arr(map);
+	ft_replace_chr(NULL, initial_map, ' ', '1');
 	return (initial_map);
 }
