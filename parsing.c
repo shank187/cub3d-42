@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:25:08 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/02 10:58:10 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/02 11:24:48 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	main(int ac, char **av)
 		show_data_strored(&game);
 	else
 		return (1);
-	init_game(&game);
+	// init_game(&game);
 	// game.map_h = map_h(game.map);
 	// game.map_w = map_w(game.map);
 	

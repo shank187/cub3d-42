@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdelhamid <abdelhamid@student.42.fr>      +#+  +:+       +#+        */
+/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:19:39 by aelbour           #+#    #+#             */
-/*   Updated: 2025/07/31 13:41:56 by abdelhamid       ###   ########.fr       */
+/*   Updated: 2025/08/02 11:22:10 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,7 @@ void			clean_data(t_game *game);
 int				store_map_infos(t_game *game, char *line);
 int				is_valid_extension(char *filename, char *identifier);
 void			*extract_and_store_data(int fd, t_game *game);
+void			ft_fix_sizes(char **arr, char c, t_game *game);
 void			show_data_strored(t_game *game); /////////////////////
 
 // double find_angle(char direction);

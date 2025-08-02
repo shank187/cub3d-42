@@ -6,26 +6,45 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 10:04:28 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/02 10:55:30 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/02 11:30:25 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-// void	*ft_fix_sizes(char **arr, char c)
-// {
-// 	size_t	max;
-// 	size_t	i;
-// 	size_t	j;
-// 	char	*tmp;
+void	ft_strjoin_char(char **str, char c, size_t size, t_game *game)
+{
+	char	*to_add;
+	char	*tmp;
 
-// 	i = 0;
-// 	max = ft_strlen(arr[i]);
-// 	while (arr[++i])
-// 		if (ft_strlen(arr[i]) > max)
-// 			max = ft_strlen(arr[i]);
-	
-// }
+	to_add = malloc(size + 1);
+	if (!to_add)
+		return (clean_parsing_stuff(game), exit(1));
+	ft_memset(to_add, c, size);
+	to_add[size] = 0;
+	tmp = *str;
+	*str = ft_strjoin(*str, to_add, game);
+	free(tmp);
+	free(to_add);
+}
+
+void	ft_fix_sizes(char **arr, char c, t_game *game)
+{
+	size_t	max;
+	size_t	i;
+
+	i = 0;
+	max = ft_strlen(arr[i]);
+	while (arr[++i])
+		if (ft_strlen(arr[i]) > max)
+			max = ft_strlen(arr[i]);
+	i = -1;
+	while (arr[++i])
+	{
+		if (ft_strlen(arr[i]) < max)
+			ft_strjoin_char(&arr[i], c, max - ft_strlen(arr[i]), game);
+	}
+}
 
 void	flood_walls_check(char **arr, int i, int j, t_game *game)
 {
