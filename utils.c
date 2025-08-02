@@ -104,6 +104,57 @@ int	key_release(int key, t_game *g)
 	return (0);
 }
 
+void add_door_to_end(t_door **head, int x, int y)
+{
+    t_door *new_door;
+    t_door *current;
+    
+    new_door = malloc(sizeof(t_door));
+    if (!new_door)
+        return;
+    new_door->x = x;
+    new_door->y = y;
+    new_door->next = NULL;
+    if (*head == NULL)
+    {
+        *head = new_door;
+        return;
+    }
+    current = *head;
+    while (current->next != NULL)
+        current = current->next;
+    current->next = new_door;
+}
+
+void remove_door(t_door **head, int x, int y)
+{
+    t_door *current;
+    t_door *prev;
+    if (*head == NULL)
+        return;
+    if ((*head)->x == x && (*head)->y == y)
+    {
+        current = *head;
+        *head = (*head)->next;
+        free(current);
+        return;
+    }
+    prev = *head;
+    current = (*head)->next;
+    
+    while (current != NULL)
+    {
+        if (current->x == x && current->y == y)
+        {
+            prev->next = current->next;
+            free(current);
+            return;
+        }
+        prev = current;
+        current = current->next;
+    }
+}
+
 void open_the_door(t_game *game)
 {
     int i = 0;
@@ -125,6 +176,30 @@ void open_the_door(t_game *game)
                  ((int)game->player.x == j - 1 && (int)game->player.y == i - 1)))
             {
                 game->map.grid[i][j] = '0';
+				add_door_to_end(&game->closed_door, j, i);
+            }
+			else if (game->map.grid[i][j] == '0')
+            {
+                t_door *current = game->closed_door;
+                while (current)
+                {
+                    if (current->x == j && current->y == i)
+                    {
+						if ((int)game->player.x < j - 1 || (int)game->player.x > j + 1)
+						{
+						    game->map.grid[i][j] = '2';
+						    remove_door(&game->closed_door, j, i);
+						    break;
+						}
+						if ((int)game->player.y < i - 1 || (int)game->player.y > i + 1)
+						{
+						    game->map.grid[i][j] = '2';
+						    remove_door(&game->closed_door, j, i);
+						    break;
+						}
+                    }
+                    current = current->next;
+                }
             }
             j++;
         }
