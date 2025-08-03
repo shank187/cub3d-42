@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:22:33 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/02 11:53:45 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/03 13:11:41 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,10 @@ char	**parse_map(char *str, t_game *game)
 	if (!game->map.is_valid)
 		return (free_2d_arr(initial_map), free(map), NULL);
 	initial_map[(int)game->player.y][(int)game->player.x] = '0';
-	// find_angle(game);
 	free_2d_arr(map);
 	ft_replace_chr(NULL, initial_map, ' ', '1');
-	ft_fix_sizes(initial_map, '1', game);
+	if (!validate_doors(initial_map))
+		return (free_2d_arr(initial_map), NULL);
+	ft_fix_sizes(initial_map, '0', game);
 	return (initial_map);
 }

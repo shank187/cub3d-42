@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdelhamid <abdelhamid@student.42.fr>      +#+  +:+       +#+        */
+/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:01:26 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/03 10:50:20 by abdelhamid       ###   ########.fr       */
+/*   Updated: 2025/08/03 13:21:27 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,30 +96,32 @@ void	*extract_and_store_data(int fd, t_game *game)
 }
 
 
-// int	validate_doors(char **arr)
-// {
-// 	int	i;
-// 	int	j;
+int	validate_doors(char **arr)
+{
+	int	i;
+	int	j;
 
-// 	i = -1;
-// 	while (arr[++i])
-// 	{
-// 		j = -1;
-// 		while (arr[++j])
-// 		{
-// 			if (arr[i][j] == '2')
-// 			{
-// 				if (((i == 0 && (j == 0)) || !arr[i + 1]) || 
-// 					(!arr[i][j + 1] && (i == 0 || !arr[i + 1])))
-// 					return (0);
-// 				else if ((i && arr[i - 1][j] == '1' && 
-// 						arr[i + 1] && arr[i + 1][j] == '1'))
-// 					;
-// 				else if (j && arr[i][j - 1] && arr[i][j + 1] == '1')
-// 					;
-// 				else
-// 					return (0);
-// 			}
-// 		}
-// 	}
-// }
+	i = -1;
+	while (arr[++i])
+	{
+		j = -1;
+		while (arr[i][++j])
+		{
+			if (arr[i][j] == '2')
+			{
+				// printf("%i\n", arr[i][j + 1]);
+				if ((j == 0 && (i == 0 || !arr[i + 1])) || \
+					(!arr[i][j + 1] && (i == 0 || !arr[i + 1])))
+					return (0);
+				else if ((i && arr[i - 1][j] == '1' && \
+					arr[i + 1] && arr[i + 1][j] == '1'))
+					;
+				else if (j && arr[i][j - 1] == '1' && arr[i][j + 1] == '1')
+					;
+				else
+					return (0);
+			}
+		}
+	}
+	return (1);
+}
