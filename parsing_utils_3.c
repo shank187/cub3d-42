@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:22:33 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/03 13:11:41 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/03 15:19:43 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	**parse_map(char *str, t_game *game)
 		return (free_2d_arr(initial_map), NULL);
 	set_player_position(map, game);
 	flood_walls_check(map, (int)game->player.y, (int)game->player.x, game);
-	if (!game->map.is_valid)
+	if (!game->map.is_valid || !surrended_walls_check(map))
 		return (free_2d_arr(initial_map), free(map), NULL);
 	initial_map[(int)game->player.y][(int)game->player.x] = '0';
 	free_2d_arr(map);

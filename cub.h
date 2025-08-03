@@ -175,6 +175,7 @@ char			**ft_split(char const *s, char c, t_game *game);
 char			*ft_substr(char const *s, unsigned int start, \
 	size_t len, t_game *game);
 void			flood_walls_check(char **arr, int i, int j, t_game *game);
+int	surrended_walls_check(char **arr);
 char			*ft_strchr(const char *s, int c);
 char			*get_next_line(int fd, t_game *game);
 // void			find_angle(t_game *game);

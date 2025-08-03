@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 10:04:28 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/02 11:30:25 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/03 15:38:56 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,34 @@ void	flood_walls_check(char **arr, int i, int j, t_game *game)
 		return ;
 	}
 	arr[i][j] = 'x';
+	flood_walls_check(arr, i + 1, j + 1 , game);
+	flood_walls_check(arr, i - 1, j + 1 , game);
 	flood_walls_check(arr, i + 1, j, game);
 	flood_walls_check(arr, i - 1, j, game);
+	flood_walls_check(arr, i - 1, j - 1, game);
+	flood_walls_check(arr, i + 1, j - 1, game);
 	flood_walls_check(arr, i, j + 1, game);
 	flood_walls_check(arr, i, j - 1, game);
+}
+
+int	surrended_walls_check(char **arr)
+{
+	int	j;
+	int	i;
+
+	i = -1;
+	while (arr[++i])
+	{
+		j = -1;
+		while (arr[i][++j])
+		{
+			if ((i == 0 || j == 0) && arr[i][j] != '1')
+				return (0);
+			else if ((!arr[i][j + 1] || !arr[i + 1]) && arr[i][j] != '1')
+				return (0);
+		}
+	}
+	return (1);
 }
 
 unsigned int	process_rgb_seq(char *line, int *i, \
