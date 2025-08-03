@@ -207,6 +207,64 @@ void open_the_door(t_game *game)
     }
 }
 
+
+void mini_map(t_game *game)
+{
+	int minimap_w = SCREEN_WIDTH / 8;
+	int minimap_h = SCREEN_HEIGHT / 8;
+	int start_x = SCREEN_WIDTH / 20;
+	int start_y = SCREEN_HEIGHT / 20;
+	int minigrid_w = minimap_w / game->map_w;
+	int minigrid_h = minimap_h / game->map_h;
+	if (minigrid_w < 1)
+		minigrid_w = 1;
+	if (minigrid_h < 1)
+		minigrid_h = 1;	
+	int map_y = 0;
+	while (map_y < game->map_h)
+	{
+		int map_x = 0;
+		while (map_x < game->map_w)
+		{
+			int screen_x = start_x + (map_x * minigrid_w);
+			int screen_y = start_y + (map_y * minigrid_h);
+			int color;
+			if (game->map.grid[map_y][map_x] == '1')
+				color = WALL_COLOR;
+			else if (game->map.grid[map_y][map_x] == '2')
+				color = DOOR_COLOR;
+			else
+				color = FLOOR_COLOR;
+			
+			int y = -1;
+			while (++y < minigrid_h)
+			{
+				int x = -1;
+				while (++x < minigrid_w)
+				    pixel_put(&game->img, screen_x + x, screen_y + y, color);
+			}
+		
+			map_x++;
+		}
+	    map_y++;
+	}
+	int player_screen_x = start_x + (int)(game->player.x * minigrid_w);
+	int player_screen_y = start_y + (int)(game->player.y * minigrid_h);
+
+	int dot_size = 2;
+	int py = -2;
+	while (py <= dot_size) // 5px
+	{
+	    int px = -2;
+	    while (px <= dot_size) //5 px
+	    {
+	        pixel_put(&game->img, player_screen_x + px, player_screen_y + py, PLAYER_COLOR);
+	        px++;
+	    }
+	    py++;
+	}
+}
+
 int	game_loop(t_game *g)
 {
 	double	move_speed;
@@ -222,6 +280,7 @@ int	game_loop(t_game *g)
 	{
 		open_the_door(g);
 		raycast(g);
+		mini_map(g);
 		mlx_put_image_to_window(g->mlx, g->win, g->img.img, 0, 0);
 	}
 	return (0);

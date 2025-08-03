@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub.h                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/16 11:19:39 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/02 11:22:10 by aelbour          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef CUB_H
 # define CUB_H
 
@@ -45,7 +33,11 @@
 # define BUFFER_SIZE 1000
 
 
-
+#define WALL_COLOR 0xFFFFFF
+#define FLOOR_COLOR 0x000000 
+#define PLAYER_COLOR 0xFF0000
+#define DOOR_COLOR 0x8B4513
+// #define MINIMAP_S 
 typedef struct s_img {
 	void	*img;
 	char	*addr;
@@ -116,6 +108,13 @@ typedef struct s_textures
 	// 
 }	t_textures;
 
+typedef struct s_door
+{
+	int x;
+	int y;
+	struct s_door *next;
+} t_door;
+
 typedef struct s_game
 {
 	t_player		player;// p
@@ -142,6 +141,7 @@ typedef struct s_game
 	int			key_d;
 	int			key_l;
 	int			key_r;
+	t_door		*closed_door;
 }	t_game;
 
 typedef struct s_gnl
@@ -224,5 +224,8 @@ void	*ft_memset(void *b, int c, size_t len);
 /* movment*/
 int		handle_movement(t_game *g, double move_speed);
 int		handle_rotation(t_game *g, double rot_speed);
+/*minimap*/
+
+void mini_map(t_game *game);
 
 #endif

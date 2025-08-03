@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abdelhamid <abdelhamid@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:25:08 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/02 11:24:48 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/03 10:46:01 by abdelhamid       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,22 +70,23 @@ int	main(int ac, char **av)
 		show_data_strored(&game);
 	else
 		return (1);
-	// init_game(&game);
-	// game.map_h = map_h(game.map);
-	// game.map_w = map_w(game.map);
+	init_game(&game);
+	game.map_h = map_h(game.map);
+	game.map_w = map_w(game.map);
 	
-	// game.player.dir_x = -1.0;  // Looking west
-	// game.player.dir_y = 0.0;
-	// game.player.plane_x = 0.0;
-	// game.player.plane_y = 0.66;  // Camera plane
+	game.player.dir_x = -1.0;  // Looking west
+	game.player.dir_y = 0.0;
+	game.player.plane_x = 0.0;
+	game.player.plane_y = 0.66;  // Camera plane
 
-	// load_texs(&game);
-	// raycast(&game);
-	// mlx_put_image_to_window(game.mlx, game.win, game.img.img, 0, 0);
-	// mlx_hook(game.win, 2, 1L << 0, key_press, &game);
-	// mlx_hook(game.win, 3, 1L << 1, key_release, &game);
-	// mlx_hook(game.win, 17, 0, close_win, &game);
-	// mlx_loop_hook(game.mlx, game_loop, &game);
-	// mlx_loop(game.mlx);
+	load_texs(&game);
+	raycast(&game);
+	mini_map(&game);
+	mlx_put_image_to_window(game.mlx, game.win, game.img.img, 0, 0);
+	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
+	mlx_hook(game.win, 3, 1L << 1, key_release, &game);
+	mlx_hook(game.win, 17, 0, close_win, &game);
+	mlx_loop_hook(game.mlx, game_loop, &game);
+	mlx_loop(game.mlx);
 	return (0);
 }

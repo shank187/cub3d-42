@@ -1,6 +1,6 @@
 NAME        = cub3D
 CC          = cc
-CFLAGS      = -Wall -Wextra -Werror -g -fsanitize=address 
+CFLAGS      = -Wall -Wextra -Werror -g -fsanitize=address #-I./minilibx-linux
 MLX_FLAGS   = -L./minilibx-linux -lmlx -lXext -lX11 -lm -I./minilibx-linux
 
 MAC_FLAGS  = -Lmlx -lmlx -framework OpenGL -framework AppKit 
@@ -27,7 +27,7 @@ OBJS        = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS)$(OBJS) $(MAC_FLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(MAC_FLAGS) -o $(NAME)
 
 %.o: %.c cub.h
 	$(CC) $(CFLAGS) -c $< -o $@
