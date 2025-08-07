@@ -266,6 +266,16 @@ void mini_map(t_game *game)
 	}
 }
 
+void	animated_sprite(t_game *game)
+{
+	static int	i;
+
+	if (i == 5)
+		i = 0;
+	
+	i++;
+}
+
 int	game_loop(t_game *g)
 {
 	double	move_speed;
