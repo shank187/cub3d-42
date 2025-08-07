@@ -1,35 +1,50 @@
 #include "cub.h"
 
+int	is_wall(t_game *g, double x, double y)
+{
+	int	map_x;
+	int	map_y;
+
+	map_x = (int)x;
+	map_y = (int)y;
+	return (g->map.grid[map_y][map_x] == '1');
+}
+
 int	handle_movement(t_game *g, double move_speed)
 {
-	int	moved;
+	double x;
+	double y;
 
-	moved = 0;
+	x = g->player.x;
+	y = g->player.y;
 	if (g->key_w)
 	{
-		g->player.x += g->player.dir_x * move_speed;
-		g->player.y += g->player.dir_y * move_speed;
-		moved = 1;
+		x += g->player.dir_x * move_speed;
+		y += g->player.dir_y * move_speed;
 	}
 	if (g->key_s)
 	{
-		g->player.x -= g->player.dir_x * move_speed;
-		g->player.y -= g->player.dir_y * move_speed;
-		moved = 1;
+		x -= g->player.dir_x * move_speed;
+		y -= g->player.dir_y * move_speed;
 	}
 	if (g->key_a)
 	{
-		g->player.x += g->player.dir_y * move_speed;
-		g->player.y -= g->player.dir_x * move_speed;
-		moved = 1;
+		x += g->player.dir_y * move_speed;
+		y -= g->player.dir_x * move_speed;
 	}
 	if (g->key_d)
 	{
-		g->player.x -= g->player.dir_y * move_speed;
-		g->player.y += g->player.dir_x * move_speed;
-		moved = 1;
+		x -= g->player.dir_y * move_speed;
+		y += g->player.dir_x * move_speed;
 	}
-	return (moved);
+	if (!is_wall(g, x, y))
+	{
+		g->player.x = x;
+		g->player.y = y;
+		return (1);
+	}
+	else
+		return (0);
 }
 
 int	handle_rotation(t_game *g, double rot_speed)
