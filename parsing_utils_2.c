@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:01:26 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/03 13:21:27 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/05 10:09:25 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ void	*extract_and_store_data(int fd, t_game *game)
 	return (free(map), game);
 }
 
-
 int	validate_doors(char **arr)
 {
 	int	i;
@@ -109,7 +108,6 @@ int	validate_doors(char **arr)
 		{
 			if (arr[i][j] == '2')
 			{
-				// printf("%i\n", arr[i][j + 1]);
 				if ((j == 0 && (i == 0 || !arr[i + 1])) || \
 					(!arr[i][j + 1] && (i == 0 || !arr[i + 1])))
 					return (0);

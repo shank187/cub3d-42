@@ -30,6 +30,14 @@
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
 
+//macos keys
+# define MLX_KEY_W       13
+# define MLX_KEY_A       0
+# define MLX_KEY_S       1
+# define MLX_KEY_D       2
+# define MLX_KEY_LEFT   123
+# define MLX_KEY_RIGHT  124
+
 # define BUFFER_SIZE 1000
 
 

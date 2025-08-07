@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 10:04:28 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/03 15:38:56 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/07 10:46:13 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,19 @@ void	ft_fix_sizes(char **arr, char c, t_game *game)
 	}
 }
 
+
 void	flood_walls_check(char **arr, int i, int j, t_game *game)
 {
 	if (!game->map.is_valid)
 		return ;
 	if (i < 0 || j < 0 || arr[i] == NULL || \
-		arr[i][j] == '\0' || arr[i][j] == ' ')
+		arr[i][j] == '\0')
 	{
-		game->map.is_valid = 0;
 		return ;
 	}
 	if (arr[i][j] == '1' || arr[i][j] == 'x')
 		return ;
-	if (arr[i][j] != '0')
+	if (arr[i][j] != 'v')
 	{
 		game->map.is_valid = 0;
 		return ;

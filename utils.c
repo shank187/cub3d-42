@@ -70,36 +70,37 @@ void	init_game(t_game *g)
 
 int	key_press(int key, t_game *g)
 {
+	// printf("%i\n", key);
 	if (key == KEY_ESC)
 		close_win(g);
-	else if (key == KEY_W)
+	else if (key == KEY_W || key == MLX_KEY_W)
 		g->key_w = 1;
-	else if (key == KEY_A)
+	else if (key == KEY_A || key == MLX_KEY_A)
 		g->key_a = 1;
-	else if (key == KEY_S)
+	else if (key == KEY_S || key == MLX_KEY_S)
 		g->key_s = 1;
-	else if (key == KEY_D)
+	else if (key == KEY_D || key == MLX_KEY_D)
 		g->key_d = 1;
-	else if (key == KEY_LEFT)
+	else if (key == KEY_LEFT || key == MLX_KEY_LEFT)
 		g->key_l = 1;
-	else if (key == KEY_RIGHT)
+	else if (key == KEY_RIGHT || key == MLX_KEY_RIGHT)
 		g->key_r = 1;
 	return (0);
 }
 
 int	key_release(int key, t_game *g)
 {
-	if (key == KEY_W)
+	if (key == KEY_W || key == MLX_KEY_W)
 		g->key_w = 0;
-	else if (key == KEY_A)
+	else if (key == KEY_A || key == MLX_KEY_A)
 		g->key_a = 0;
-	else if (key == KEY_S)
+	else if (key == KEY_S || key == MLX_KEY_S)
 		g->key_s = 0;
-	else if (key == KEY_D)
+	else if (key == KEY_D || key == MLX_KEY_D)
 		g->key_d = 0;
-	else if (key == KEY_LEFT)
+	else if (key == KEY_LEFT || key == MLX_KEY_LEFT)
 		g->key_l = 0;
-	else if (key == KEY_RIGHT)
+	else if (key == KEY_RIGHT || key == MLX_KEY_RIGHT)
 		g->key_r = 0;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:22:33 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/03 15:19:43 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/07 10:53:14 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	set_player_position(char **map, t_game *game)
 				map[i][j] == 'E' || map[i][j] == 'W')
 			{
 				game->player.x = j + 0.5;
-				game->player.y = i + 0.5;
+				game->player.y = i + 0.5 + 1;
 				map[i][j] = '0';
 				found = 1;
 			}
@@ -76,6 +76,41 @@ static void	set_player_position(char **map, t_game *game)
 		}
 		i++;
 	}
+}
+
+char	**cover_all_sides(char **map, t_game *game)
+{
+	int		i;
+	char	*fill_start;
+	char	*fill_end;
+	char	**new_map;
+	char	*tmp;
+
+	i = -1;
+	while (map[++i])
+		;
+	fill_start = malloc(ft_strlen(map[0]) + (2) + 1);
+	ft_memset(fill_start, 'v', ft_strlen(map[0]) + (2));
+	fill_start[ft_strlen(map[0]) + (2)] = 0;
+	fill_end = malloc(ft_strlen(map[0]) + (2) + 1);
+	ft_memset(fill_end, 'v', ft_strlen(map[0]) + (2));
+	fill_end[ft_strlen(map[0]) + (2)] = 0;
+	new_map = malloc (sizeof(char *) * (i + 3));
+	new_map[0] = fill_start;
+	new_map[i + 1] = fill_end;
+	new_map[i + 2] = NULL;
+	i = -1;
+	while (map[++i])
+	{
+		new_map[i + 1] = ft_strjoin(map[i], "v", game);
+		tmp = new_map[i + 1];
+		new_map[i + 1] = ft_strjoin("v", tmp, game);
+		free(tmp);
+	}
+	i = -1;
+	while (new_map[++i])
+		printf("%s\n", new_map[i]);
+	return (new_map);
 }
 
 char	**parse_map(char *str, t_game *game)
@@ -92,14 +127,18 @@ char	**parse_map(char *str, t_game *game)
 	if (!map)
 		return (free_2d_arr(initial_map), NULL);
 	set_player_position(map, game);
-	flood_walls_check(map, (int)game->player.y, (int)game->player.x, game);
-	if (!game->map.is_valid || !surrended_walls_check(map))
-		return (free_2d_arr(initial_map), free(map), NULL);
 	initial_map[(int)game->player.y][(int)game->player.x] = '0';
 	free_2d_arr(map);
-	ft_replace_chr(NULL, initial_map, ' ', '1');
+	ft_replace_chr(NULL, initial_map, ' ', 'v');
 	if (!validate_doors(initial_map))
 		return (free_2d_arr(initial_map), NULL);
-	ft_fix_sizes(initial_map, '0', game);
-	return (initial_map);
+	ft_fix_sizes(initial_map, 'v', game);
+	map = cover_all_sides(initial_map, game);
+	map[(int)game->player.y ][(int)game->player.x] = '0';
+	free_2d_arr(initial_map);
+	printf("\n\n");
+	flood_walls_check(map, 0, 0, game);
+	if (!game->map.is_valid)
+		return (free_2d_arr(map), NULL);
+	return (map);
 }
