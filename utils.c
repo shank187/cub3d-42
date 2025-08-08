@@ -51,15 +51,24 @@ void clear_screen(t_game *g)
         y++;
     }
 }
+
+// calc_
+
 void	init_game(t_game *g)
 {
 	g->mlx = mlx_init();
 	g->scr_w = SCREEN_WIDTH;
 	g->scr_h = SCREEN_HEIGHT;
+	g->horse.height = 160;
+	g->horse.width = 160;
+	g->horse.pos_x = (SCREEN_WIDTH / 2) - (g->horse.width / 2);
+	g->horse.pos_y = SCREEN_HEIGHT - g->horse.height + 50;
+	g->horse.texture = "./textures/horse.xpm";
 	g->win = mlx_new_window(g->mlx, g->scr_w, g->scr_h, "cub3D");
 	g->img.img = mlx_new_image(g->mlx, g->scr_w, g->scr_h);
 	g->img.addr = mlx_get_data_addr(g->img.img, &g->img.bpp,
 			&g->img.line_len, &g->img.endian);
+	mlx_xpm_file_to_image(g->mlx, g->horse.texture, &g->horse.width, &g->horse.height);
 	g->key_w = 0;
 	g->key_a = 0;
 	g->key_s = 0;
@@ -269,11 +278,14 @@ void mini_map(t_game *game)
 void	animated_sprite(t_game *game)
 {
 	static int	i;
+	static int	direction;
 
-	if (i == 5)
-		i = 0;
-	
-	i++;
+	if (i == 0)
+		direction = 1;
+	else if (i == 50)
+		direction = -1;
+	game->horse.pos_y += i;
+	i += direction;
 }
 
 int	game_loop(t_game *g)
@@ -292,6 +304,7 @@ int	game_loop(t_game *g)
 		open_the_door(g);
 		raycast(g);
 		mini_map(g);
+		animated_sprite(g);
 		mlx_put_image_to_window(g->mlx, g->win, g->img.img, 0, 0);
 	}
 	return (0);

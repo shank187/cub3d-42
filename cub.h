@@ -123,10 +123,20 @@ typedef struct s_door
 	struct s_door *next;
 } t_door;
 
+typedef struct s_horse
+{
+	int	pos_x;
+	int	pos_y;
+	int	height;
+	int	width;
+	char *texture;	
+}	t_horse;
+
 typedef struct s_game
 {
 	t_player		player;// p
 	t_map			map;
+	t_horse			horse;
 	unsigned int	floor_color;
 	unsigned int	ceiling_color;
 	
