@@ -68,7 +68,10 @@ void	init_game(t_game *g)
 	g->img.img = mlx_new_image(g->mlx, g->scr_w, g->scr_h);
 	g->img.addr = mlx_get_data_addr(g->img.img, &g->img.bpp,
 			&g->img.line_len, &g->img.endian);
-	mlx_xpm_file_to_image(g->mlx, g->horse.texture, &g->horse.width, &g->horse.height);
+	 g->horse.img = mlx_xpm_file_to_image(g->mlx, g->horse.texture, 
+                                        &g->horse.width, &g->horse.height);
+    // if (!g->horse.img)
+    //     error_exit("Failed to load horse texture");
 	g->key_w = 0;
 	g->key_a = 0;
 	g->key_s = 0;
@@ -288,6 +291,51 @@ void	animated_sprite(t_game *game)
 	i += direction;
 }
 
+
+void render_horse_sprite(t_game *game)
+{
+    int x, y;
+    int *horse_data;
+    int horse_color;
+    
+    if (!game->horse.img)
+        return;
+        
+    // Get the horse texture data
+    horse_data = (int *)mlx_get_data_addr(game->horse.img, 
+                                         &game->horse.bpp, 
+                                         &game->horse.line_len, 
+                                         &game->horse.endian);
+    
+    // Draw horse pixel by pixel onto the main image
+    y = 0;
+    while (y < game->horse.height)
+    {
+        x = 0;
+        while (x < game->horse.width)
+        {
+            // Calculate screen position
+            int screen_x = game->horse.pos_x + x;
+            int screen_y = game->horse.pos_y + y;
+            
+            // Check bounds
+            if (screen_x >= 0 && screen_x < game->scr_w && 
+                screen_y >= 0 && screen_y < game->scr_h)
+            {
+                // Get horse pixel color
+                horse_color = horse_data[y * (game->horse.line_len / 4) + x];
+                
+                // Skip transparent pixels (assuming black/0 is transparent)
+                if (horse_color != 0x000000 && (horse_color & 0xFF000000) != 0)
+                {
+                    pixel_put(&game->img, screen_x, screen_y, horse_color);
+                }
+            }
+            x++;
+        }
+        y++;
+    }
+}
 int	game_loop(t_game *g)
 {
 	double	move_speed;
@@ -301,12 +349,13 @@ int	game_loop(t_game *g)
 	moved += handle_rotation(g, rot_speed);
 	if (moved)
 	{
-		open_the_door(g);
-		raycast(g);
-		mini_map(g);
-		animated_sprite(g);
-		mlx_put_image_to_window(g->mlx, g->win, g->img.img, 0, 0);
-	}
+        open_the_door(g);
+        raycast(g);                    // Renders walls to g->img
+        mini_map(g);                   // Renders minimap to g->img
+        animated_sprite(g);            // Updates horse position
+        render_horse_sprite(g);        // Renders horse to g->img
+        mlx_put_image_to_window(g->mlx, g->win, g->img.img, 0, 0); // Display everything
+    }
 	return (0);
 }
 
