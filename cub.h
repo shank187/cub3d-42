@@ -53,6 +53,7 @@ typedef struct s_horse {
     int height;
     int pos_x;
     int pos_y;
+    int base_pos_y;
     int bpp;
     int line_len;
     int endian;

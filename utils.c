@@ -59,10 +59,11 @@ void	init_game(t_game *g)
 	g->mlx = mlx_init();
 	g->scr_w = SCREEN_WIDTH;
 	g->scr_h = SCREEN_HEIGHT;
-	g->horse.height = 160;
-	g->horse.width = 160;
+	g->horse.height = 160 * 3;
+	g->horse.width = 160 * 3;
 	g->horse.pos_x = (SCREEN_WIDTH / 2) - (g->horse.width / 2);
 	g->horse.pos_y = SCREEN_HEIGHT - g->horse.height + 50;
+	g->horse.base_pos_y = SCREEN_HEIGHT - g->horse.height;
 	g->horse.texture = "./textures/horse.xpm";
 	g->win = mlx_new_window(g->mlx, g->scr_w, g->scr_h, "cub3D");
 	g->img.img = mlx_new_image(g->mlx, g->scr_w, g->scr_h);
@@ -278,57 +279,61 @@ void mini_map(t_game *game)
 	}
 }
 
-void	animated_sprite(t_game *game)
+void animated_sprite(t_game *game)
 {
-	static int	i;
-	static int	direction;
+    static int frame = 0;
+    static int dir = 1;
+    int offset;
 
-	if (i == 0)
-		direction = 1;
-	else if (i == 50)
-		direction = -1;
-	game->horse.pos_y += i;
-	i += direction;
+    if (frame >= 50) dir = -1;
+    if (frame <= 0) dir = 1;
+
+    frame += dir;                  // Move up/down in range [0,50]
+    offset = frame / 2;            // Smaller movement speed
+    game->horse.pos_y = game->horse.base_pos_y + offset;
 }
 
 
 void render_horse_sprite(t_game *game)
 {
-    int x, y;
+    int x, y, dx, dy;
     int *horse_data;
     int horse_color;
-    
-    if (!game->horse.img)
+    int t; // transparency
+    int scale = 3; // make it 3x bigger
+
+
+	if (!game->horse.img)
         return;
-        
-    // Get the horse texture data
-    horse_data = (int *)mlx_get_data_addr(game->horse.img, 
-                                         &game->horse.bpp, 
-                                         &game->horse.line_len, 
+    horse_data = (int *)mlx_get_data_addr(game->horse.img,
+                                         &game->horse.bpp,
+                                         &game->horse.line_len,
                                          &game->horse.endian);
-    
-    // Draw horse pixel by pixel onto the main image
     y = 0;
     while (y < game->horse.height)
     {
         x = 0;
         while (x < game->horse.width)
         {
-            // Calculate screen position
-            int screen_x = game->horse.pos_x + x;
-            int screen_y = game->horse.pos_y + y;
-            
-            // Check bounds
-            if (screen_x >= 0 && screen_x < game->scr_w && 
-                screen_y >= 0 && screen_y < game->scr_h)
+            horse_color = horse_data[y * (game->horse.line_len / 4) + x];
+            t = (horse_color >> 24) & 0xFF;
+
+            if (t == 0) // fully visible
             {
-                // Get horse pixel color
-                horse_color = horse_data[y * (game->horse.line_len / 4) + x];
-                
-                // Skip transparent pixels (assuming black/0 is transparent)
-                if (horse_color != 0x000000 && (horse_color & 0xFF000000) != 0)
+                // Draw scaled pixel block
+                for (dy = 0; dy < scale; dy++)
                 {
-                    pixel_put(&game->img, screen_x, screen_y, horse_color);
+                    for (dx = 0; dx < scale; dx++)
+                    {
+                        int screen_x = game->horse.pos_x + (x * scale) + dx;
+                        int screen_y = game->horse.pos_y + (y * scale) + dy;
+
+                        if (screen_x >= 0 && screen_x < game->scr_w &&
+                            screen_y >= 0 && screen_y < game->scr_h)
+                        {
+                            pixel_put(&game->img, screen_x, screen_y, horse_color);
+                        }
+                    }
                 }
             }
             x++;
@@ -336,6 +341,8 @@ void render_horse_sprite(t_game *game)
         y++;
     }
 }
+
+
 int	game_loop(t_game *g)
 {
 	double	move_speed;
