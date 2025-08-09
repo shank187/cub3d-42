@@ -59,8 +59,9 @@ void	init_game(t_game *g)
 	g->mlx = mlx_init();
 	g->scr_w = SCREEN_WIDTH;
 	g->scr_h = SCREEN_HEIGHT;
-	g->horse.height = 160 * 3;
-	g->horse.width = 160 * 3;
+	g->horse.scale = 3;
+	g->horse.height = 160 * g->horse.scale;
+	g->horse.width = 160 * g->horse.scale;
 	g->horse.pos_x = (SCREEN_WIDTH / 2) - (g->horse.width / 2);
 	g->horse.pos_y = SCREEN_HEIGHT - g->horse.height + 50;
 	g->horse.base_pos_y = SCREEN_HEIGHT - g->horse.height;
@@ -299,16 +300,15 @@ void render_horse_sprite(t_game *game)
     int x, y, dx, dy;
     int *horse_data;
     int horse_color;
-    int t; // transparency
-    int scale = 3; // make it 3x bigger
+    int t;
+    int scale = game->horse.scale;
 
-
-	if (!game->horse.img)
+    if (!game->horse.img)
         return;
     horse_data = (int *)mlx_get_data_addr(game->horse.img,
-                                         &game->horse.bpp,
-                                         &game->horse.line_len,
-                                         &game->horse.endian);
+                                          &game->horse.bpp,
+                                          &game->horse.line_len,
+                                          &game->horse.endian);
     y = 0;
     while (y < game->horse.height)
     {
@@ -317,23 +317,23 @@ void render_horse_sprite(t_game *game)
         {
             horse_color = horse_data[y * (game->horse.line_len / 4) + x];
             t = (horse_color >> 24) & 0xFF;
-
-            if (t == 0) // fully visible
+            if (t == 0)
             {
-                // Draw scaled pixel block
-                for (dy = 0; dy < scale; dy++)
+                dy = 0;
+                while (dy < scale)
                 {
-                    for (dx = 0; dx < scale; dx++)
+                    dx = 0;
+                    while (dx < scale)
                     {
                         int screen_x = game->horse.pos_x + (x * scale) + dx;
                         int screen_y = game->horse.pos_y + (y * scale) + dy;
 
                         if (screen_x >= 0 && screen_x < game->scr_w &&
                             screen_y >= 0 && screen_y < game->scr_h)
-                        {
                             pixel_put(&game->img, screen_x, screen_y, horse_color);
-                        }
+                        dx++;
                     }
+                    dy++;
                 }
             }
             x++;

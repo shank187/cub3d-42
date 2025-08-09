@@ -7,12 +7,10 @@
 # include <stdlib.h>
 # include <math.h>
 # include <limits.h>
-#include <stdint.h>
-#include "mlx.h"
+# include <stdint.h>
+# include "mlx.h"
 # include <math.h>
-#include <stdbool.h>
-
-// # include <string.h>
+# include <stdbool.h>
 # include <errno.h>
 
 
@@ -57,9 +55,9 @@ typedef struct s_horse {
     int bpp;
     int line_len;
     int endian;
+	int scale;
     char *texture;
 } t_horse;
-
 
 typedef struct s_img {
 	void	*img;
@@ -70,8 +68,6 @@ typedef struct s_img {
 	int		width;
 	int		height;
 }	t_img;
-
-
 
 typedef struct s_player
 {
@@ -84,8 +80,8 @@ typedef struct s_player
 	
 	// double	pos_x;
 	// double	pos_y;
-	double	dir_x;
 	double	dir_y;
+	double	dir_x;
 	double	plane_x;
 	double	plane_y;
 	char	start_dir;
