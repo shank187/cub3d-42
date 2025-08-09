@@ -46,6 +46,20 @@
 #define PLAYER_COLOR 0xFF0000
 #define DOOR_COLOR 0x8B4513
 // #define MINIMAP_S 
+
+typedef struct s_horse {
+    void *img;
+    int width;
+    int height;
+    int pos_x;
+    int pos_y;
+    int bpp;
+    int line_len;
+    int endian;
+    char *texture;
+} t_horse;
+
+
 typedef struct s_img {
 	void	*img;
 	char	*addr;
@@ -123,14 +137,14 @@ typedef struct s_door
 	struct s_door *next;
 } t_door;
 
-typedef struct s_horse
-{
-	int	pos_x;
-	int	pos_y;
-	int	height;
-	int	width;
-	char *texture;	
-}	t_horse;
+// typedef struct s_horse
+// {
+// 	int	pos_x;
+// 	int	pos_y;
+// 	int	height;
+// 	int	width;
+// 	char *texture;	
+// }	t_horse;
 
 typedef struct s_game
 {
