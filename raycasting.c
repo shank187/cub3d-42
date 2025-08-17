@@ -72,10 +72,14 @@ void dda(t_game *g, t_ray *r)
 
 void calc_wall_dist(t_game *g, t_ray *r)
 {
-	if (r->side == 0)
-		r->wall_dist = (r->map_x - g->player.x + (1 - r->step_x) / 2) / r->ray_dir_x;
+	(void)g;
+	if (r->side == 0)                            // if we hit the wall from the left or the right
+		r->wall_dist = r->side_x - r->delta_x; //r->wall_dist = (r->map_x - g->player.x + (1 - r->step_x) / 2) / r->ray_dir_x;
 	else
-		r->wall_dist = (r->map_y - g->player.y + (1 - r->step_y) / 2) / r->ray_dir_y;
+		r->wall_dist = r->side_y - r->delta_y; //r->wall_dist = (r->map_y - g->player.y + (1 - r->step_y) / 2) / r->ray_dir_y;
+	if (r->wall_dist < 0.001)
+        r->wall_dist = 0.009;
+	// f}\n",r->wall_dist);
 }
 
 void calc_wall_h(t_game *g, t_ray *r)
@@ -122,6 +126,7 @@ void draw_line(t_game *g, t_ray *r, int x)
 	r->tex_x = (int)(r->wall_x * (double)TEX_WIDTH);         //tex_x converts this to a pixel coordinate in the texture (0 to 63 if TEX_WIDTH = 64)
 	if ((r->side == 0 && r->ray_dir_x > 0) || (r->side == 1 && r->ray_dir_y < 0))
 		r->tex_x = TEX_WIDTH - r->tex_x - 1;
+		
 	step = 1.0 * TEX_HEIGHT / r->line_h; 	//For step < 1.0 (close walls):
 											// The texture is oversampled (some pixels are reused).
 											// Can cause blockiness, but your line_h clamping minimizes this.
@@ -134,6 +139,7 @@ void draw_line(t_game *g, t_ray *r, int x)
 	while (++y < r->draw_s)
 		pixel_put(&g->img, x, y, g->ceiling_color);
 	y = r->draw_s;
+	// printf("[%d]----[%d]\n", r->draw_s , r->draw_e);
 	while (y < r->draw_e)
 	{
 		r->tex_y = (int)tex_pos % TEX_HEIGHT;
@@ -156,6 +162,7 @@ void raycast(t_game *g)
 	t_ray r;
 
 	x = -1;
+	// printf("_+++++\n");
 	while (++x < g->scr_w)
 	{
 		init_ray(g, &r, x);
@@ -164,5 +171,6 @@ void raycast(t_game *g)
 		calc_wall_dist(g, &r);
 		calc_wall_h(g, &r);
 		draw_line(g, &r, x);
+		// printf("++++\n");
 	}
 }
