@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:22:33 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/07 10:53:14 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/19 15:09:21 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	set_player_position(char **map, t_game *game)
 				map[i][j] == 'E' || map[i][j] == 'W')
 			{
 				game->player.x = j + 0.5;
-				game->player.y = i + 0.5 + 1;
+				game->player.y = i + 0.5;
 				map[i][j] = '0';
 				found = 1;
 			}
@@ -123,21 +123,25 @@ char	**parse_map(char *str, t_game *game)
 		return (NULL);
 	if (!validate_and_parse_chars(str, game))
 		return (free_2d_arr(initial_map), NULL);
+	// printf("test\n");
 	map = ft_split(str, '\n', game);
 	if (!map)
 		return (free_2d_arr(initial_map), NULL);
 	set_player_position(map, game);
 	initial_map[(int)game->player.y][(int)game->player.x] = '0';
 	free_2d_arr(map);
-	ft_replace_chr(NULL, initial_map, ' ', 'v');
+	ft_replace_chr(NULL, initial_map, ' ', '0');
 	if (!validate_doors(initial_map))
 		return (free_2d_arr(initial_map), NULL);
 	ft_fix_sizes(initial_map, 'v', game);
 	map = cover_all_sides(initial_map, game);
-	map[(int)game->player.y ][(int)game->player.x] = '0';
 	free_2d_arr(initial_map);
-	printf("\n\n");
 	flood_walls_check(map, 0, 0, game);
+	// printf("\n\n");
+	// int i = 0;
+	// while(map[i])
+	// 	printf("%s\n", map[i++]);
+	// printf("\n\n");
 	if (!game->map.is_valid)
 		return (free_2d_arr(map), NULL);
 	return (map);

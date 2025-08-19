@@ -377,7 +377,6 @@ int mouse_move(int x, int y, void *param)
 		game->slide_right = 1;
 		old_x = x;
 	}
-	printf("Mouse moved to: X=%d, Y=%d\n", x, y);
 	return (0);
 }
 

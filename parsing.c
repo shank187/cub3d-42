@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:25:08 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/19 14:19:14 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/19 14:31:19 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,12 @@ int map_w(t_map map)
 	}
 	return (max);
 }
+
 int	main(int ac, char **av)
 {
 	t_game	game;
-	ft_memset(&game, 0, sizeof(game));
 
+	ft_memset(&game, 0, sizeof(game));
 	if (parse_inputs(&game, ac, av))
 		show_data_strored(&game);
 	else
@@ -74,12 +75,10 @@ int	main(int ac, char **av)
 	init_game(&game);
 	game.map_h = map_h(game.map);
 	game.map_w = map_w(game.map);
-	
 	game.player.dir_x = -1.0;  // Looking west
 	game.player.dir_y = 0.0;
 	game.player.plane_x = 0.0;
 	game.player.plane_y = 0.66;  // Camera plane
-
 	load_texs(&game);
 	raycast(&game);
 	mini_map(&game);
