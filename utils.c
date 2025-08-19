@@ -27,29 +27,29 @@ void	pixel_put(t_img *img, int x, int y, int color)
 
 void	error_exit(char *msg)
 {
-    printf("%s\n", msg);
-    exit (1);
+	printf("%s\n", msg);
+	exit (1);
 }
 
 void clear_screen(t_game *g)
 {
-    int x;
-    int y;
+	int x;
+	int y;
 
-    y = 0;
-    while (y < g->scr_h)
-    {
-        x = 0;
-        while (x < g->scr_w)
-        {
-            if (y < g->scr_h / 2)
-                pixel_put(&g->img, x, y, g->ceiling_color);  // Ceiling color
-            else
-                pixel_put(&g->img, x, y, g->floor_color); // Floor color
-            x++;
-        }
-        y++;
-    }
+	y = 0;
+	while (y < g->scr_h)
+	{
+		x = 0;
+		while (x < g->scr_w)
+		{
+			if (y < g->scr_h / 2)
+				pixel_put(&g->img, x, y, g->ceiling_color);  // Ceiling color
+			else
+				pixel_put(&g->img, x, y, g->floor_color); // Floor color
+			x++;
+		}
+		y++;
+	}
 }
 
 // calc_
@@ -70,10 +70,10 @@ void	init_game(t_game *g)
 	g->img.img = mlx_new_image(g->mlx, g->scr_w, g->scr_h);
 	g->img.addr = mlx_get_data_addr(g->img.img, &g->img.bpp,
 			&g->img.line_len, &g->img.endian);
-	 g->horse.img = mlx_xpm_file_to_image(g->mlx, g->horse.texture, 
-                                        &g->horse.width, &g->horse.height);
-    // if (!g->horse.img)
-    //     error_exit("Failed to load horse texture");
+	g->horse.img = mlx_xpm_file_to_image(g->mlx, g->horse.texture, 
+										&g->horse.width, &g->horse.height);
+	// if (!g->horse.img)
+	//     error_exit("Failed to load horse texture");
 	g->closed_door = NULL;
 	g->key_w = 0;
 	g->key_a = 0;
@@ -122,122 +122,122 @@ int	key_release(int key, t_game *g)
 
 void add_door_to_end(t_door **head, int x, int y)
 {
-    t_door *new_door;
-    t_door *current;
-    
-    new_door = malloc(sizeof(t_door));
-    if (!new_door)
-        return;
-    new_door->x = x;
-    new_door->y = y;
-    new_door->next = NULL;
-    if (*head == NULL)
-    {
-        *head = new_door;
-        return;
-    }
-    current = *head;
-    while (current->next != NULL)
-        current = current->next;
-    current->next = new_door;
+	t_door *new_door;
+	t_door *current;
+	
+	new_door = malloc(sizeof(t_door));
+	if (!new_door)
+		return;
+	new_door->x = x;
+	new_door->y = y;
+	new_door->next = NULL;
+	if (*head == NULL)
+	{
+		*head = new_door;
+		return;
+	}
+	current = *head;
+	while (current->next != NULL)
+		current = current->next;
+	current->next = new_door;
 }
 
 void remove_door(t_door **head, int x, int y)
 {
-    t_door *current;
-    t_door *prev;
-     if (!head || *head == NULL)
-        return;
-    if ((*head)->x == x && (*head)->y == y)
-    {
-        current = *head;
-        *head = (*head)->next;
-        free(current);
-        return;
-    }
-    prev = *head;
-    current = (*head)->next;
-    
-    while (current != NULL)
-    {
-        if (current->x == x && current->y == y)
-        {
-            prev->next = current->next;
-            free(current);
-            return;
-        }
-        prev = current;
-        current = current->next;
-    }
+	t_door *current;
+	t_door *prev;
+	 if (!head || *head == NULL)
+		return;
+	if ((*head)->x == x && (*head)->y == y)
+	{
+		current = *head;
+		*head = (*head)->next;
+		free(current);
+		return;
+	}
+	prev = *head;
+	current = (*head)->next;
+	
+	while (current != NULL)
+	{
+		if (current->x == x && current->y == y)
+		{
+			prev->next = current->next;
+			free(current);
+			return;
+		}
+		prev = current;
+		current = current->next;
+	}
 }
 
 void open_the_door(t_game *game)
 {
-    int i = 0;
-    int j;
+	int i = 0;
+	int j;
 
-    while (i < game->map_h)
-    {
-        j = 0; // j = x , i = y
-        while (j < game->map_w)
-        {
-            if (game->map.grid[i][j] == '2' && 
-                (((int)game->player.x == j && (int)game->player.y == i - 1) || 
-                 ((int)game->player.x == j + 1 && (int)game->player.y == i - 1) || 
-                 ((int)game->player.x == j + 1 && (int)game->player.y == i) ||
-                 ((int)game->player.x == j + 1 && (int)game->player.y == i + 1) ||
-                 ((int)game->player.x == j && (int)game->player.y == i + 1) ||
-                 ((int)game->player.x == j - 1 && (int)game->player.y == i + 1) ||
-                 ((int)game->player.x == j - 1 && (int)game->player.y == i) ||
-                 ((int)game->player.x == j - 1 && (int)game->player.y == i - 1)))
-            {
-                game->map.grid[i][j] = '0';
+	while (i < game->map_h)
+	{
+		j = 0; // j = x , i = y
+		while (j < game->map_w)
+		{
+			if (game->map.grid[i][j] == '2' && 
+				(((int)game->player.x == j && (int)game->player.y == i - 1) || 
+				 ((int)game->player.x == j + 1 && (int)game->player.y == i - 1) || 
+				 ((int)game->player.x == j + 1 && (int)game->player.y == i) ||
+				 ((int)game->player.x == j + 1 && (int)game->player.y == i + 1) ||
+				 ((int)game->player.x == j && (int)game->player.y == i + 1) ||
+				 ((int)game->player.x == j - 1 && (int)game->player.y == i + 1) ||
+				 ((int)game->player.x == j - 1 && (int)game->player.y == i) ||
+				 ((int)game->player.x == j - 1 && (int)game->player.y == i - 1)))
+			{
+				game->map.grid[i][j] = '0';
 				add_door_to_end(&game->closed_door, j, i);
-            }
+			}
 			else if (game->map.grid[i][j] == '0')
-            {
-                t_door *current = game->closed_door;
-                int player_x = (int)game->player.x;
-                int player_y = (int)game->player.y;
-                
-                while (current)
-                {
-                    if (current->x == j && current->y == i)
-                    {
-                        // Close door if player is far enough away
-                        if (abs(player_x - j) > 1 || abs(player_y - i) > 1)
-                        {
-                            game->map.grid[i][j] = '2';
-                            remove_door(&game->closed_door, j, i);
-                            break;
-                        }
-                    }
-                    current = current->next;
-                }
-            }
-            j++;
-        }
-        i++;
-    }
+			{
+				t_door *current = game->closed_door;
+				int player_x = (int)game->player.x;
+				int player_y = (int)game->player.y;
+				
+				while (current)
+				{
+					if (current->x == j && current->y == i)
+					{
+						// Close door if player is far enough away
+						if (abs(player_x - j) > 1 || abs(player_y - i) > 1)
+						{
+							game->map.grid[i][j] = '2';
+							remove_door(&game->closed_door, j, i);
+							break;
+						}
+					}
+					current = current->next;
+				}
+			}
+			j++;
+		}
+		i++;
+	}
 }
 
 
 void free_all_doors(t_door **head)
 {
-    t_door *current;
-    t_door *next;
-    
-    if (!head)
-        return;
-        
-    current = *head;
-    while (current)
-    {
-        next = current->next;
-        free(current);
-        current = next;
-    }
-    *head = NULL;
+	t_door *current;
+	t_door *next;
+	
+	if (!head)
+		return;
+		
+	current = *head;
+	while (current)
+	{
+		next = current->next;
+		free(current);
+		current = next;
+	}
+	*head = NULL;
 }
 
 void mini_map(t_game *game)
@@ -273,12 +273,12 @@ void mini_map(t_game *game)
 			{
 				int x = -1;
 				while (++x < minigrid_w)
-				    pixel_put(&game->img, screen_x + x, screen_y + y, color);
+					pixel_put(&game->img, screen_x + x, screen_y + y, color);
 			}
 		
 			map_x++;
 		}
-	    map_y++;
+		map_y++;
 	}
 	int player_screen_x = start_x + (int)(game->player.x * minigrid_w);
 	int player_screen_y = start_y + (int)(game->player.y * minigrid_h);
@@ -287,78 +287,99 @@ void mini_map(t_game *game)
 	int py = -2;
 	while (py <= dot_size) // 5px
 	{
-	    int px = -2;
-	    while (px <= dot_size) //5 px
-	    {
-	        pixel_put(&game->img, player_screen_x + px, player_screen_y + py, PLAYER_COLOR);
-	        px++;
-	    }
-	    py++;
+		int px = -2;
+		while (px <= dot_size) //5 px
+		{
+			pixel_put(&game->img, player_screen_x + px, player_screen_y + py, PLAYER_COLOR);
+			px++;
+		}
+		py++;
 	}
 }
 
 void animated_sprite(t_game *game)
 {
-    static int frame = 0;
-    static int dir = 1;
-    int offset;
+	static int frame = 0;
+	static int dir = 1;
+	int offset;
 
-    if (frame >= 50) dir = -1;
-    if (frame <= 0) dir = 1;
+	if (frame >= 50) dir = -1;
+	if (frame <= 0) dir = 1;
 
-    frame += dir;                  // Move up/down in range [0,50]
-    offset = frame / 2;            // Smaller movement speed
-    game->horse.pos_y = game->horse.base_pos_y + offset;
+	frame += dir;                  // Move up/down in range [0,50]
+	offset = frame / 2;            // Smaller movement speed
+	game->horse.pos_y = game->horse.base_pos_y + offset;
 }
 
 
 void render_horse_sprite(t_game *game)
 {
-    int x, y, dx, dy;
-    int *horse_data;
-    int horse_color;
-    int t;
-    int scale = game->horse.scale;
+	int x, y, dx, dy;
+	int *horse_data;
+	int horse_color;
+	int t;
+	int scale = game->horse.scale;
 
-    if (!game->horse.img)
-        return;
-    horse_data = (int *)mlx_get_data_addr(game->horse.img,
-                                          &game->horse.bpp,
-                                          &game->horse.line_len,
-                                          &game->horse.endian);
-    y = 0;
-    while (y < game->horse.height)
-    {
-        x = 0;
-        while (x < game->horse.width)
-        {
-            horse_color = horse_data[y * (game->horse.line_len / 4) + x];
-            t = (horse_color >> 24) & 0xFF;
-            if (t == 0)
-            {
-                dy = 0;
-                while (dy < scale)
-                {
-                    dx = 0;
-                    while (dx < scale)
-                    {
-                        int screen_x = game->horse.pos_x + (x * scale) + dx;
-                        int screen_y = game->horse.pos_y + (y * scale) + dy;
+	if (!game->horse.img)
+		return;
+	horse_data = (int *)mlx_get_data_addr(game->horse.img,
+										  &game->horse.bpp,
+										  &game->horse.line_len,
+										  &game->horse.endian);
+	y = 0;
+	while (y < game->horse.height)
+	{
+		x = 0;
+		while (x < game->horse.width)
+		{
+			horse_color = horse_data[y * (game->horse.line_len / 4) + x];
+			t = (horse_color >> 24) & 0xFF;
+			if (t == 0)
+			{
+				dy = 0;
+				while (dy < scale)
+				{
+					dx = 0;
+					while (dx < scale)
+					{
+						int screen_x = game->horse.pos_x + (x * scale) + dx;
+						int screen_y = game->horse.pos_y + (y * scale) + dy;
 
-                        if (screen_x >= 0 && screen_x < game->scr_w &&
-                            screen_y >= 0 && screen_y < game->scr_h)
-                            pixel_put(&game->img, screen_x, screen_y, horse_color);
-                        dx++;
-                    }
-                    dy++;
-                }
-            }
-            x++;
-        }
-        y++;
-    }
+						if (screen_x >= 0 && screen_x < game->scr_w &&
+							screen_y >= 0 && screen_y < game->scr_h)
+							pixel_put(&game->img, screen_x, screen_y, horse_color);
+						dx++;
+					}
+					dy++;
+				}
+			}
+			x++;
+		}
+		y++;
+	}
 }
 
+int mouse_move(int x, int y, void *param)
+{
+	static int 	old_x;
+	t_game		*game;
+
+	game = (t_game *) param;
+	if (y < 0 || y >= game->scr_h)
+		return (0);
+	if (x >= 0 && x <= game->scr_w && x < old_x)
+	{
+		game->slide_left = 1;
+		old_x = x;
+	}
+	if (x >= 0 && x <= game->scr_w && x > old_x)
+	{
+		game->slide_right = 1;
+		old_x = x;
+	}
+	printf("Mouse moved to: X=%d, Y=%d\n", x, y);
+	return (0);
+}
 
 int	game_loop(t_game *g)
 {
@@ -373,13 +394,13 @@ int	game_loop(t_game *g)
 	moved += handle_rotation(g, rot_speed);
 	if (moved)
 	{
-        open_the_door(g);
-        raycast(g);                    // Renders walls to g->img
-        mini_map(g);                   // Renders minimap to g->img
-        animated_sprite(g);            // Updates horse position
-        render_horse_sprite(g);        // Renders horse to g->img
-        mlx_put_image_to_window(g->mlx, g->win, g->img.img, 0, 0); // Display everything
-    }
+		open_the_door(g);
+		raycast(g);                    // Renders walls to g->img
+		mini_map(g);                   // Renders minimap to g->img
+		animated_sprite(g);            // Updates horse position
+		render_horse_sprite(g);        // Renders horse to g->img
+		mlx_put_image_to_window(g->mlx, g->win, g->img.img, 0, 0); // Display everything
+	}
 	return (0);
 }
 

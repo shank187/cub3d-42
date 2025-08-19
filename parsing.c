@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdelhamid <abdelhamid@student.42.fr>      +#+  +:+       +#+        */
+/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:25:08 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/03 10:46:01 by abdelhamid       ###   ########.fr       */
+/*   Updated: 2025/08/19 14:19:14 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int map_w(t_map map)
 int	main(int ac, char **av)
 {
 	t_game	game;
+	ft_memset(&game, 0, sizeof(game));
 
 	if (parse_inputs(&game, ac, av))
 		show_data_strored(&game);
@@ -85,6 +86,7 @@ int	main(int ac, char **av)
 	mlx_put_image_to_window(game.mlx, game.win, game.img.img, 0, 0);
 	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
 	mlx_hook(game.win, 3, 1L << 1, key_release, &game);
+	mlx_hook(game.win, 6, (1L << 6), mouse_move, &game);
 	mlx_hook(game.win, 17, 0, close_win, &game);
 	mlx_loop_hook(game.mlx, game_loop, &game);
 	mlx_loop(game.mlx);

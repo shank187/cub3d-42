@@ -134,15 +134,6 @@ typedef struct s_door
 	struct s_door *next;
 } t_door;
 
-// typedef struct s_horse
-// {
-// 	int	pos_x;
-// 	int	pos_y;
-// 	int	height;
-// 	int	width;
-// 	char *texture;	
-// }	t_horse;
-
 typedef struct s_game
 {
 	t_player		player;// p
@@ -150,9 +141,8 @@ typedef struct s_game
 	t_horse			horse;
 	unsigned int	floor_color;
 	unsigned int	ceiling_color;
-	
-	//
-	
+	int				slide_left;
+	int				slide_right;
 	void		*mlx;
 	void		*win;
 	t_img		img;
@@ -220,6 +210,7 @@ int				is_valid_extension(char *filename, char *identifier);
 void			*extract_and_store_data(int fd, t_game *game);
 void			ft_fix_sizes(char **arr, char c, t_game *game);
 int				validate_doors(char **arr);
+int				mouse_move(int x, int y, void *param);
 void			show_data_strored(t_game *game); /////////////////////
 
 // double find_angle(char direction);
