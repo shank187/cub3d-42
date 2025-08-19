@@ -27,12 +27,12 @@ int	handle_movement(t_game *g, double move_speed)
 		x -= g->player.dir_x * move_speed;
 		y -= g->player.dir_y * move_speed;
 	}
-	if (g->key_a)
+	if (g->key_d)
 	{
 		x += g->player.dir_y * move_speed;
 		y -= g->player.dir_x * move_speed;
 	}
-	if (g->key_d)
+	if (g->key_a)
 	{
 		x -= g->player.dir_y * move_speed;
 		y += g->player.dir_x * move_speed;

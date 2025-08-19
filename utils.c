@@ -74,6 +74,7 @@ void	init_game(t_game *g)
                                         &g->horse.width, &g->horse.height);
     // if (!g->horse.img)
     //     error_exit("Failed to load horse texture");
+	g->closed_door = NULL;
 	g->key_w = 0;
 	g->key_a = 0;
 	g->key_s = 0;
@@ -85,7 +86,7 @@ void	init_game(t_game *g)
 int	key_press(int key, t_game *g)
 {
 	// printf("%i\n", key);
-	if (key == KEY_ESC)
+	if (key == KEY_ESC || key == 53)
 		close_win(g);
 	else if (key == KEY_W || key == MLX_KEY_W)
 		g->key_w = 1;
@@ -145,7 +146,7 @@ void remove_door(t_door **head, int x, int y)
 {
     t_door *current;
     t_door *prev;
-    if (*head == NULL)
+     if (!head || *head == NULL)
         return;
     if ((*head)->x == x && (*head)->y == y)
     {
@@ -175,10 +176,10 @@ void open_the_door(t_game *game)
     int i = 0;
     int j;
 
-    while (game->map.grid[i])
+    while (i < game->map_h)
     {
         j = 0; // j = x , i = y
-        while (game->map.grid[i][j])
+        while (j < game->map_w)
         {
             if (game->map.grid[i][j] == '2' && 
                 (((int)game->player.x == j && (int)game->player.y == i - 1) || 
@@ -196,22 +197,20 @@ void open_the_door(t_game *game)
 			else if (game->map.grid[i][j] == '0')
             {
                 t_door *current = game->closed_door;
+                int player_x = (int)game->player.x;
+                int player_y = (int)game->player.y;
+                
                 while (current)
                 {
                     if (current->x == j && current->y == i)
                     {
-						if ((int)game->player.x < j - 1 || (int)game->player.x > j + 1)
-						{
-						    game->map.grid[i][j] = '2';
-						    remove_door(&game->closed_door, j, i);
-						    break;
-						}
-						if ((int)game->player.y < i - 1 || (int)game->player.y > i + 1)
-						{
-						    game->map.grid[i][j] = '2';
-						    remove_door(&game->closed_door, j, i);
-						    break;
-						}
+                        // Close door if player is far enough away
+                        if (abs(player_x - j) > 1 || abs(player_y - i) > 1)
+                        {
+                            game->map.grid[i][j] = '2';
+                            remove_door(&game->closed_door, j, i);
+                            break;
+                        }
                     }
                     current = current->next;
                 }
@@ -222,6 +221,24 @@ void open_the_door(t_game *game)
     }
 }
 
+
+void free_all_doors(t_door **head)
+{
+    t_door *current;
+    t_door *next;
+    
+    if (!head)
+        return;
+        
+    current = *head;
+    while (current)
+    {
+        next = current->next;
+        free(current);
+        current = next;
+    }
+    *head = NULL;
+}
 
 void mini_map(t_game *game)
 {
@@ -378,6 +395,7 @@ int	close_win(t_game *g)
 		mlx_destroy_image(g->mlx, g->img.img);
 	if (g->win)
 		mlx_destroy_window(g->mlx, g->win);
+	free_all_doors(&g->closed_door);
 	exit(0);
 	return (0);
 }

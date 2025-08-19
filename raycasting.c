@@ -74,9 +74,9 @@ void calc_wall_dist(t_game *g, t_ray *r)
 {
 	(void)g;
 	if (r->side == 0)                            // if we hit the wall from the left or the right
-		r->wall_dist = r->side_x - r->delta_x; //r->wall_dist = (r->map_x - g->player.x + (1 - r->step_x) / 2) / r->ray_dir_x;
+		r->wall_dist = (r->map_x - g->player.x + (1 - r->step_x) / 2) / r->ray_dir_x;
 	else
-		r->wall_dist = r->side_y - r->delta_y; //r->wall_dist = (r->map_y - g->player.y + (1 - r->step_y) / 2) / r->ray_dir_y;
+		r->wall_dist = (r->map_y - g->player.y + (1 - r->step_y) / 2) / r->ray_dir_y;
 	if (r->wall_dist < 0.001)
         r->wall_dist = 0.009;
 	// f}\n",r->wall_dist);
