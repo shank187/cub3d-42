@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:25:08 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/20 10:14:09 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/20 10:56:01 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,38 @@ int map_w(t_map map)
 	return (max);
 }
 
+void	init_player_direction(t_game *game)
+{
+	if (game->player.dir == 'N')
+	{
+		game->player.dir_x = 0.0;
+		game->player.dir_y = -1.0;
+		game->player.plane_x = 0.66;
+		game->player.plane_y = 0.0;
+	}
+	else if (game->player.dir == 'S')
+	{
+		game->player.dir_x = 0.0;
+		game->player.dir_y = 1.0;
+		game->player.plane_x = -0.66;
+		game->player.plane_y = 0.0;
+	}
+	else if (game->player.dir == 'E')
+	{
+		game->player.dir_x = 1.0;
+		game->player.dir_y = 0.0;
+		game->player.plane_x = 0.0;
+		game->player.plane_y = 0.66;
+	}
+	else if (game->player.dir == 'W')
+	{
+		game->player.dir_x = -1.0;
+		game->player.dir_y = 0.0;
+		game->player.plane_x = 0.0;
+		game->player.plane_y = -0.66;
+	}
+}
+
 int	main(int ac, char **av)
 {
 	t_game	game;
@@ -75,10 +107,7 @@ int	main(int ac, char **av)
 	init_game(&game);
 	game.map_h = map_h(game.map);
 	game.map_w = map_w(game.map);
-	game.player.dir_x = -1.0;  // Looking west
-	game.player.dir_y = 0.0;
-	game.player.plane_x = 0.0;
-	game.player.plane_y = 0.66;  // Camera plane
+	init_player_direction(&game);
 	load_texs(&game);
 	raycast(&game);
 	mini_map(&game);
