@@ -37,6 +37,8 @@ int	handle_movement(t_game *g, double move_speed)
 		x -= g->player.dir_y * move_speed;
 		y += g->player.dir_x * move_speed;
 	}
+	// if (x == g->player.x && y == g->player.y)
+	// 	return (0);
 	if (!is_wall(g, x, y))
 	{
 		g->player.x = x;

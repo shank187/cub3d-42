@@ -45,19 +45,29 @@
 #define DOOR_COLOR 0x8B4513
 // #define MINIMAP_S 
 
-typedef struct s_horse {
-    void *img;
-    int width;
-    int height;
-    int pos_x;
-    int pos_y;
-    int base_pos_y;
-    int bpp;
-    int line_len;
-    int endian;
-	int scale;
-    char *texture;
-} t_horse;
+typedef struct s_horse
+{
+	void	*img;
+	int		width;
+	int		height;
+	int		pos_x;
+	int		pos_y;
+	int		x;
+	int		y;
+	int		dx;
+	int		dy;
+	int		horse_color;
+	int		t;
+	int		base_pos_y;
+	int		bpp;
+	int		line_len;
+	int		endian;
+	int		scale;
+	int		screen_x;
+	int		screen_y;
+	int		*horse_data;
+	char	*texture;
+}	t_horse;
 
 typedef struct s_img {
 	void	*img;
@@ -212,6 +222,9 @@ void			ft_fix_sizes(char **arr, char c, t_game *game);
 int				validate_doors(char **arr);
 int				mouse_move(int x, int y, void *param);
 void			show_data_strored(t_game *game); /////////////////////
+void			render_horse_sprite(t_game *game);
+void			animated_sprite(t_game *game);
+int				mouse_move(int x, int y, void *param);
 
 // double find_angle(char direction);
 void	free_2d_arr(char **str);

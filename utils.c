@@ -297,89 +297,6 @@ void mini_map(t_game *game)
 	}
 }
 
-void animated_sprite(t_game *game)
-{
-	static int frame = 0;
-	static int dir = 1;
-	int offset;
-
-	if (frame >= 50) dir = -1;
-	if (frame <= 0) dir = 1;
-
-	frame += dir;                  // Move up/down in range [0,50]
-	offset = frame / 2;            // Smaller movement speed
-	game->horse.pos_y = game->horse.base_pos_y + offset;
-}
-
-
-void render_horse_sprite(t_game *game)
-{
-	int x, y, dx, dy;
-	int *horse_data;
-	int horse_color;
-	int t;
-	int scale = game->horse.scale;
-
-	if (!game->horse.img)
-		return;
-	horse_data = (int *)mlx_get_data_addr(game->horse.img,
-										  &game->horse.bpp,
-										  &game->horse.line_len,
-										  &game->horse.endian);
-	y = 0;
-	while (y < game->horse.height)
-	{
-		x = 0;
-		while (x < game->horse.width)
-		{
-			horse_color = horse_data[y * (game->horse.line_len / 4) + x];
-			t = (horse_color >> 24) & 0xFF;
-			if (t == 0)
-			{
-				dy = 0;
-				while (dy < scale)
-				{
-					dx = 0;
-					while (dx < scale)
-					{
-						int screen_x = game->horse.pos_x + (x * scale) + dx;
-						int screen_y = game->horse.pos_y + (y * scale) + dy;
-
-						if (screen_x >= 0 && screen_x < game->scr_w &&
-							screen_y >= 0 && screen_y < game->scr_h)
-							pixel_put(&game->img, screen_x, screen_y, horse_color);
-						dx++;
-					}
-					dy++;
-				}
-			}
-			x++;
-		}
-		y++;
-	}
-}
-
-int mouse_move(int x, int y, void *param)
-{
-	static int 	old_x;
-	t_game		*game;
-
-	game = (t_game *) param;
-	if (y < 0 || y >= game->scr_h)
-		return (0);
-	if (x >= 0 && x <= game->scr_w && x < old_x)
-	{
-		game->slide_left = 1;
-		old_x = x;
-	}
-	if (x >= 0 && x <= game->scr_w && x > old_x)
-	{
-		game->slide_right = 1;
-		old_x = x;
-	}
-	return (0);
-}
-
 int	game_loop(t_game *g)
 {
 	double	move_speed;
@@ -394,11 +311,11 @@ int	game_loop(t_game *g)
 	if (moved)
 	{
 		open_the_door(g);
-		raycast(g);                    // Renders walls to g->img
-		mini_map(g);                   // Renders minimap to g->img
-		animated_sprite(g);            // Updates horse position
-		render_horse_sprite(g);        // Renders horse to g->img
-		mlx_put_image_to_window(g->mlx, g->win, g->img.img, 0, 0); // Display everything
+		raycast(g);
+		mini_map(g);
+		animated_sprite(g);
+		render_horse_sprite(g);
+		mlx_put_image_to_window(g->mlx, g->win, g->img.img, 0, 0);
 	}
 	return (0);
 }
