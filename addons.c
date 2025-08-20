@@ -6,18 +6,42 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 08:59:24 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/20 10:23:46 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/20 11:38:00 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
+void	draw_my_horse(t_game *game, t_horse *h)
+{
+	h->horse_color = h->horse_data[h->y * \
+	(game->horse.line_len / 4) + h->x];
+	h->t = (h->horse_color >> 24) & 0xFF;
+	if (h->t == 0)
+	{
+		h->dy = 0;
+		while (h->dy < h->scale)
+		{
+			h->dx = 0;
+			while (h->dx < h->scale)
+			{
+				h->screen_x = game->horse.pos_x + (h->x * h->scale) + h->dx;
+				h->screen_y = game->horse.pos_y + (h->y * h->scale) + h->dy;
+				if (h->screen_x >= 0 && h->screen_x < game->scr_w && \
+					h->screen_y >= 0 && h->screen_y < game->scr_h)
+					pixel_put(&game->img, h->screen_x, \
+					h->screen_y, h->horse_color);
+				h->dx++;
+			}
+			h->dy++;
+		}
+	}
+}
+
 void    render_horse_sprite(t_game *game)
 {
 	t_horse	*h;
-	int scale;
 
-	scale = game->horse.scale;
 	h = &game->horse;
 	if (!game->horse.img)
 		return ;
@@ -31,28 +55,7 @@ void    render_horse_sprite(t_game *game)
 		h->x = 0;
 		while (h->x < game->horse.width)
 		{
-			h->horse_color = h->horse_data[h->y * \
-			(game->horse.line_len / 4) + h->x];
-			h->t = (h->horse_color >> 24) & 0xFF;
-			if (h->t == 0)
-			{
-				h->dy = 0;
-				while (h->dy < scale)
-				{
-					h->dx = 0;
-					while (h->dx < scale)
-					{
-						h->screen_x = game->horse.pos_x + (h->x * scale) + h->dx;
-						h->screen_y = game->horse.pos_y + (h->y * scale) + h->dy;
-						if (h->screen_x >= 0 && h->screen_x < game->scr_w && \
-							h->screen_y >= 0 && h->screen_y < game->scr_h)
-							pixel_put(&game->img, h->screen_x, \
-							h->screen_y, h->horse_color);
-						h->dx++;
-					}
-					h->dy++;
-				}
-			}
+			draw_my_horse(game, h);
 			h->x++;
 		}
 		h->y++;
@@ -78,7 +81,7 @@ void	animated_sprite(t_game *game)
 
 int	mouse_move(int x, int y, void *param)
 {
-	static int 	old_x;
+	static int	old_x;
 	t_game		*game;
 
 	game = (t_game *) param;
