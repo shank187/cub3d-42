@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 10:04:28 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/07 10:46:13 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/20 11:08:07 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void	flood_walls_check(char **arr, int i, int j, t_game *game)
 		return ;
 	}
 	arr[i][j] = 'x';
-	flood_walls_check(arr, i + 1, j + 1 , game);
-	flood_walls_check(arr, i - 1, j + 1 , game);
+	flood_walls_check(arr, i + 1, j + 1, game);
+	flood_walls_check(arr, i - 1, j + 1, game);
 	flood_walls_check(arr, i + 1, j, game);
 	flood_walls_check(arr, i - 1, j, game);
 	flood_walls_check(arr, i - 1, j - 1, game);

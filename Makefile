@@ -19,6 +19,7 @@ SRCS        = raycasting.c \
               parsing_utils_1.c \
               parsing_utils_2.c \
               parsing_utils_3.c \
+              parsing_utils_4.c \
               addons.c \
               testing.c
 

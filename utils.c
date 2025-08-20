@@ -71,9 +71,7 @@ void	init_game(t_game *g)
 	g->img.addr = mlx_get_data_addr(g->img.img, &g->img.bpp,
 			&g->img.line_len, &g->img.endian);
 	g->horse.img = mlx_xpm_file_to_image(g->mlx, g->horse.texture, 
-										&g->horse.width, &g->horse.height);
-	// if (!g->horse.img)
-	//     error_exit("Failed to load horse texture");
+								&g->horse.width, &g->horse.height);;
 	g->closed_door = NULL;
 	g->key_w = 0;
 	g->key_a = 0;

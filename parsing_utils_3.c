@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:22:33 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/19 15:09:21 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/20 11:07:29 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,41 +78,6 @@ static void	set_player_position(char **map, t_game *game)
 	}
 }
 
-char	**cover_all_sides(char **map, t_game *game)
-{
-	int		i;
-	char	*fill_start;
-	char	*fill_end;
-	char	**new_map;
-	char	*tmp;
-
-	i = -1;
-	while (map[++i])
-		;
-	fill_start = malloc(ft_strlen(map[0]) + (2) + 1);
-	ft_memset(fill_start, 'v', ft_strlen(map[0]) + (2));
-	fill_start[ft_strlen(map[0]) + (2)] = 0;
-	fill_end = malloc(ft_strlen(map[0]) + (2) + 1);
-	ft_memset(fill_end, 'v', ft_strlen(map[0]) + (2));
-	fill_end[ft_strlen(map[0]) + (2)] = 0;
-	new_map = malloc (sizeof(char *) * (i + 3));
-	new_map[0] = fill_start;
-	new_map[i + 1] = fill_end;
-	new_map[i + 2] = NULL;
-	i = -1;
-	while (map[++i])
-	{
-		new_map[i + 1] = ft_strjoin(map[i], "v", game);
-		tmp = new_map[i + 1];
-		new_map[i + 1] = ft_strjoin("v", tmp, game);
-		free(tmp);
-	}
-	i = -1;
-	while (new_map[++i])
-		printf("%s\n", new_map[i]);
-	return (new_map);
-}
-
 char	**parse_map(char *str, t_game *game)
 {
 	char	**initial_map;
@@ -123,7 +88,6 @@ char	**parse_map(char *str, t_game *game)
 		return (NULL);
 	if (!validate_and_parse_chars(str, game))
 		return (free_2d_arr(initial_map), NULL);
-	// printf("test\n");
 	map = ft_split(str, '\n', game);
 	if (!map)
 		return (free_2d_arr(initial_map), NULL);
@@ -137,11 +101,6 @@ char	**parse_map(char *str, t_game *game)
 	map = cover_all_sides(initial_map, game);
 	free_2d_arr(initial_map);
 	flood_walls_check(map, 0, 0, game);
-	// printf("\n\n");
-	// int i = 0;
-	// while(map[i])
-	// 	printf("%s\n", map[i++]);
-	// printf("\n\n");
 	if (!game->map.is_valid)
 		return (free_2d_arr(map), NULL);
 	return (map);
