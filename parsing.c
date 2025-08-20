@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-had <abel-had@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:25:08 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/20 10:56:01 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/20 11:02:02 by abel-had         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,14 @@ void	init_player_direction(t_game *game)
 	if (game->player.dir == 'N')
 	{
 		game->player.dir_x = 0.0;
-		game->player.dir_y = -1.0;
+		game->player.dir_y = 1.0;
 		game->player.plane_x = 0.66;
 		game->player.plane_y = 0.0;
 	}
 	else if (game->player.dir == 'S')
 	{
 		game->player.dir_x = 0.0;
-		game->player.dir_y = 1.0;
+		game->player.dir_y = -1.0;
 		game->player.plane_x = -0.66;
 		game->player.plane_y = 0.0;
 	}
@@ -84,14 +84,14 @@ void	init_player_direction(t_game *game)
 		game->player.dir_x = 1.0;
 		game->player.dir_y = 0.0;
 		game->player.plane_x = 0.0;
-		game->player.plane_y = 0.66;
+		game->player.plane_y = -0.66;
 	}
 	else if (game->player.dir == 'W')
 	{
 		game->player.dir_x = -1.0;
 		game->player.dir_y = 0.0;
 		game->player.plane_x = 0.0;
-		game->player.plane_y = -0.66;
+		game->player.plane_y = 0.66;
 	}
 }
 
