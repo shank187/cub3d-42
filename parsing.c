@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-had <abel-had@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:25:08 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/20 11:02:02 by abel-had         ###   ########.fr       */
+/*   Updated: 2025/08/20 11:17:04 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,21 @@ with the .cub extension as first argument.\n", 2);
 	return (0);
 }
 
-int map_h(t_map map)
+int	map_h(t_map map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (map.grid[i])
 		i++;
 	return (i);
 }
-int map_w(t_map map)
+
+int	map_w(t_map map)
 {
-	int i;
-	int j;
-	int max;
+	int	i;
+	int	j;
+	int	max;
 
 	i = 0;
 	j = 0;
@@ -95,10 +96,16 @@ void	init_player_direction(t_game *game)
 	}
 }
 
+void    leaks(void)
+{
+    system("leaks cub3D");
+}
+
 int	main(int ac, char **av)
 {
 	t_game	game;
 
+	atexit(leaks);
 	ft_memset(&game, 0, sizeof(game));
 	if (parse_inputs(&game, ac, av))
 		show_data_strored(&game);

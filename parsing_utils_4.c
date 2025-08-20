@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 11:02:06 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/20 11:03:41 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/20 11:25:51 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	validate_doors(char **arr)
 	return (1);
 }
 
-char	**cover_all_sides(char **map, t_game *game)
+char	**padding_char_2d(char **map, t_game *game)
 {
 	int		i;
 	char	*fill_start;

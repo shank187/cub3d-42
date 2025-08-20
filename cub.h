@@ -225,7 +225,7 @@ void			show_data_strored(t_game *game); /////////////////////
 void			render_horse_sprite(t_game *game);
 void			animated_sprite(t_game *game);
 int				mouse_move(int x, int y, void *param);
-char			**cover_all_sides(char **map, t_game *game);
+char			**padding_char_2d(char **map, t_game *game);
 int				validate_doors(char **arr);
 
 // double find_angle(char direction);
