@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 09:43:04 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/07 10:53:22 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/21 10:55:03 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,6 @@ void	clean_data(t_game *game)
 	ft_replace_chr(game->tex.so, NULL, '\n', 0);
 	ft_replace_chr(game->tex.we, NULL, '\n', 0);
 	ft_replace_chr(game->tex.ea, NULL, '\n', 0);
-	ft_replace_chr(game->tex.no, NULL, ' ', 0);
-	ft_replace_chr(game->tex.so, NULL, ' ', 0);
-	ft_replace_chr(game->tex.we, NULL, ' ', 0);
-	ft_replace_chr(game->tex.ea, NULL, ' ', 0);
 	ft_replace_chr(NULL, game->map.grid, 'x', '0');
 }
 

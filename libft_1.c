@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 10:15:11 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/20 11:31:53 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/21 10:30:45 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ int	ft_atoi(const char *str, int *i)
 {
 	long	t;
 	long	oldt;
+	int		start;
 
+	start = *i;
 	t = 0;
 	oldt = 0;
 
@@ -27,6 +29,8 @@ int	ft_atoi(const char *str, int *i)
 			return (-1);
 		oldt = t;
 	}
+	if (start == (*i))
+		return (-2);
 	if ((str[(*i)] != ' ' && str[(*i)] != ',' && \
 		str[*i] != '\n' && str[*i] != 0) || t > 255 || t < 0)
 		return (-2);
