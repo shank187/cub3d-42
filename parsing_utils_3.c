@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:22:33 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/20 11:25:51 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/21 11:27:55 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,9 @@ char	**parse_map(char *str, t_game *game)
 		return (free_2d_arr(initial_map), NULL);
 	ft_fix_sizes(initial_map, 'v', game);
 	map = padding_char_2d(initial_map, game);
+	int i = -1;
+	while (map[i])
+		printf("%s\n", map[++i]);
 	free_2d_arr(initial_map);
 	flood_walls_check(map, 0, 0, game);
 	if (!game->map.is_valid)

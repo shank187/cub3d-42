@@ -222,6 +222,7 @@ void			ft_fix_sizes(char **arr, char c, t_game *game);
 int				validate_doors(char **arr);
 int				mouse_move(int x, int y, void *param);
 void			show_data_strored(t_game *game); /////////////////////
+void			init_logfile(void); ///////////////////////////
 void			render_horse_sprite(t_game *game);
 void			animated_sprite(t_game *game);
 int				mouse_move(int x, int y, void *param);

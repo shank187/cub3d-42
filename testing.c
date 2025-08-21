@@ -1,5 +1,9 @@
 #include "cub.h"
 
+void init_logfile(void)
+{
+    freopen("debug.log", "w", stdout);  // now printf goes to debug.log
+}
 
 void	extract_rgb_from_uint32(unsigned int color)
 {
