@@ -70,11 +70,11 @@ int	handle_rotation(t_game *g, double rot_speed)
 	if (g->key_r || g->slide_right)
 	{
 		old_dir_x = g->player.dir_x;
-		g->player.dir_x = g->player.dir_x * cos(-rot_speed) - g->player.dir_y * sin(-rot_speed);
-		g->player.dir_y = old_dir_x * sin(-rot_speed) + g->player.dir_y * cos(-rot_speed);
+		g->player.dir_x = g->player.dir_x * cos(rot_speed) + g->player.dir_y * sin(rot_speed);
+		g->player.dir_y = g->player.dir_y * cos(rot_speed) - old_dir_x * sin(rot_speed);
 		old_plane_x = g->player.plane_x;
-		g->player.plane_x = g->player.plane_x * cos(-rot_speed) - g->player.plane_y * sin(-rot_speed);
-		g->player.plane_y = old_plane_x * sin(-rot_speed) + g->player.plane_y * cos(-rot_speed);
+		g->player.plane_x = g->player.plane_x * cos(rot_speed) + g->player.plane_y * sin(rot_speed);
+		g->player.plane_y = g->player.plane_y * cos(rot_speed) - old_plane_x * sin(rot_speed);
 		moved = 1;
 		g->slide_right = 0;
 	}
