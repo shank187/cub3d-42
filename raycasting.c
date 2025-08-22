@@ -93,6 +93,47 @@ void calc_wall_h(t_game *g, t_ray *r)
 		r->draw_e = g->scr_h - 1;
 }
 
+int tex_nb(t_ray *r)
+{
+	if (r->door)
+		return (4);
+	else if (r->side == 0)
+	{
+		if (r->step_x > 0)
+			return (2); // EAST
+		else
+			return (3); // WEST
+	}
+	else
+	{
+		if (r->step_y > 0)
+			return (1); // SOUTH
+		else
+			return (0); // NORTH
+	}
+}
+
+void draw_line_part1(t_game *g, t_ray *r, double *step, double *tex_pos)
+{
+	if (r->side == 0)
+		r->wall_x = g->player.y + r->wall_dist * r->ray_dir_y;
+	else														// wall_x is the fractional position along the wall (0.0 = left edge, 1.0 = right edge)
+		r->wall_x = g->player.x + r->wall_dist * r->ray_dir_x;
+	r->wall_x -= floor(r->wall_x);                           // Get fractional part (0.0 to 1.0)
+	r->tex_x = (int)(r->wall_x * (double)TEX_WIDTH);         //tex_x converts this to a pixel coordinate in the texture (0 to 63 if TEX_WIDTH = 64)
+	// if ((r->side == 0 && r->ray_dir_x > 0) || (r->side == 1 && r->ray_dir_y < 0))
+	// 	r->tex_x = TEX_WIDTH - r->tex_x - 1;
+		
+	*step = (double)TEX_HEIGHT / r->line_h; 	//For step < 1.0 (close walls):
+											// The texture is oversampled (some pixels are reused).
+											// Can cause blockiness, but your line_h clamping minimizes this.
+
+											//For step >= 1.0 (far walls):
+											//The texture is undersampled (some pixels are skipped).
+											//On low-resolution walls, this isn't visibly noticeable.
+	*tex_pos = (r->draw_s - g->scr_h / 2 + r->line_h / 2) * (*step); // calculate the starting vertical position in the texture for drawing a wall slice
+}
+
 // floor(x) instead of (int)x solve negatve nbrs !!! 
 void draw_line(t_game *g, t_ray *r, int x)
 {
@@ -102,52 +143,17 @@ void draw_line(t_game *g, t_ray *r, int x)
 	double step;
 	double tex_pos;
 
-	if (r->door)
-		tex_num = 4;
-	else if (r->side == 0)
-	{
-		if (r->step_x > 0)
-			tex_num = 2; // EAST
-		else
-			tex_num = 3; // WEST
-	}
-	else
-	{
-		if (r->step_y > 0)
-			tex_num = 1; // SOUTH
-		else
-			tex_num = 0; // NORTH
-	}
-	if (r->side == 0)
-		r->wall_x = g->player.y + r->wall_dist * r->ray_dir_y;
-	else														// wall_x is the fractional position along the wall (0.0 = left edge, 1.0 = right edge)
-		r->wall_x = g->player.x + r->wall_dist * r->ray_dir_x;
-	r->wall_x -= floor(r->wall_x);                           // Get fractional part (0.0 to 1.0)
-	r->tex_x = (int)(r->wall_x * (double)TEX_WIDTH);         //tex_x converts this to a pixel coordinate in the texture (0 to 63 if TEX_WIDTH = 64)
-	if ((r->side == 0 && r->ray_dir_x > 0) || (r->side == 1 && r->ray_dir_y < 0))
-		r->tex_x = TEX_WIDTH - r->tex_x - 1;
-		
-	step = 1.0 * TEX_HEIGHT / r->line_h; 	//For step < 1.0 (close walls):
-											// The texture is oversampled (some pixels are reused).
-											// Can cause blockiness, but your line_h clamping minimizes this.
-
-											//For step >= 1.0 (far walls):
-											//The texture is undersampled (some pixels are skipped).
-											//On low-resolution walls, this isn’t visibly noticeable.
-	tex_pos = (r->draw_s - g->scr_h / 2 + r->line_h / 2) * step; // calculate the starting vertical position in the texture for drawing a wall slice
+	tex_num = tex_nb(r);
+	draw_line_part1(g, r, &step, &tex_pos);
 	y = -1;
 	while (++y < r->draw_s)
 		pixel_put(&g->img, x, y, g->ceiling_color);
 	y = r->draw_s;
-	// printf("[%d]----[%d]\n", r->draw_s , r->draw_e);
 	while (y < r->draw_e)
 	{
 		r->tex_y = (int)tex_pos % TEX_HEIGHT;
 		tex_pos += step;
 		color = *(int *)(g->texs[tex_num].addr + (r->tex_y * g->texs[tex_num].line_len + r->tex_x * (g->texs[tex_num].bpp / 8)));
-		//				texture[texNum]           [  texY   *  texHeight                      +  texX]
-		
-		// printf("[%d]\n", color);
 		pixel_put(&g->img, x, y, color);
 		y++;
 	}
@@ -162,7 +168,6 @@ void raycast(t_game *g)
 	t_ray r;
 
 	x = -1;
-	// printf("_+++++\n");
 	while (++x < g->scr_w)
 	{
 		init_ray(g, &r, x);
@@ -171,6 +176,5 @@ void raycast(t_game *g)
 		calc_wall_dist(g, &r);
 		calc_wall_h(g, &r);
 		draw_line(g, &r, x);
-		// printf("++++\n");
 	}
 }

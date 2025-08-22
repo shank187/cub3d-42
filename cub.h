@@ -192,6 +192,32 @@ typedef struct s_split
 	t_game		*game;
 }	t_split;
 
+typedef struct s_minimap
+{
+	int	minimap_w;
+	int	minimap_h;
+	int	start_x;
+	int	start_y;
+	int	minigrid_w;
+	int	minigrid_h;
+	int	map_y;
+	int	player_screen_x;
+	int	player_screen_y;
+	int	dot_size;
+	int	py;
+	int	px;
+} t_minimap;
+
+void mini_map(t_game *game);
+void draw_player_dot(t_game *game, t_minimap *v);
+void draw_minimap_grid(t_game *game, t_minimap *v);
+void init_minimap(t_minimap *v, t_game *game);
+
+
+void free_all_doors(t_door **head);
+void	open_the_door(t_game *game);
+
+
 size_t			ft_strlen(const char *s);
 void			ft_putstr_fd(char *s, int fd);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -256,7 +282,7 @@ int		close_win(t_game *g);
 
 /* Utils */
 
-void	error_exit(char *msg);
+void	error_exit(t_game *game, char *msg);
 void	*ft_memset(void *b, int c, size_t len);
 
 /* movment*/
