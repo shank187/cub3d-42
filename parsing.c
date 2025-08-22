@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:25:08 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/21 11:26:12 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/22 11:42:30 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,7 @@ int	main(int ac, char **av)
 {
 	t_game	game;
 
-	// atexit(leaks);
-	init_logfile();
+	
 	ft_memset(&game, 0, sizeof(game));
 	if (parse_inputs(&game, ac, av))
 		show_data_strored(&game);

@@ -3,9 +3,9 @@ F       10 ,10, 0
 
 
 
-SO   ./textures/south.xpm             
-NO   ./textures/south.xpm             
-WE   ./textures/south.xpm             
+SO   ./textures/south.xpm
+NO   ./textures/south.xpm
+WE   ./textures/south.xpm
 
 
 EA   ./textures/east.xpm

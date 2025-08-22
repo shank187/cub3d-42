@@ -79,6 +79,13 @@ typedef struct s_img {
 	int		height;
 }	t_img;
 
+typedef struct s_queue
+{
+	int				x;
+	int				y;
+	struct s_queue	*next;
+}	t_queue;
+
 typedef struct s_player
 {
 	double	x;
@@ -146,7 +153,7 @@ typedef struct s_door
 
 typedef struct s_game
 {
-	t_player		player;// p
+	t_player		player;// p	
 	t_map			map;
 	t_horse			horse;
 	unsigned int	floor_color;
@@ -254,6 +261,7 @@ void			animated_sprite(t_game *game);
 int				mouse_move(int x, int y, void *param);
 char			**padding_char_2d(char **map, t_game *game);
 int				validate_doors(char **arr);
+int				iter_flood_check(char **arr, int x, int y, t_game *game);
 
 // double find_angle(char direction);
 void	free_2d_arr(char **str);

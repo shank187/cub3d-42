@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 10:04:28 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/20 11:08:07 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/22 11:34:52 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,32 +46,60 @@ void	ft_fix_sizes(char **arr, char c, t_game *game)
 	}
 }
 
-
-void	flood_walls_check(char **arr, int i, int j, t_game *game)
+void	push_to_queue(t_queue **head, int x, int y, char **arr)
 {
-	if (!game->map.is_valid)
+	t_queue	*new;
+
+	if (x < 0 || y < 0 || arr[y] == NULL || arr[y][x] == 0 || arr[y][x] == 'x' || arr[y][x] == '1')
 		return ;
-	if (i < 0 || j < 0 || arr[i] == NULL || \
-		arr[i][j] == '\0')
+	new = malloc(sizeof(t_queue));
+	new->x = x;
+	new->y = y;
+	new->next = *head;
+	*head = new;
+}
+
+void	pop_from_queue(t_queue **head)
+{
+	t_queue	*tmp;
+
+	tmp = *head;
+	*head = (*head)->next;
+	free(tmp);
+}
+
+int	iter_flood_check(char **arr, int x, int y, t_game *game)
+{
+	t_queue	*head;
+
+	(void)game;
+	head = malloc(sizeof(t_queue));
+	head->x = x;
+	head->y = y;
+	head->next = NULL;
+	while (head)
 	{
-		return ;
+		x = head->x;
+		y = head->y;
+		pop_from_queue(&head);
+		if (x < 0 || y < 0 || arr[y] == NULL || arr[y][x] == 0 || arr[y][x] == 'x' || arr[y][x] == '1')
+			continue ;
+		else if (arr[y][x] != 'v')
+			return (0);
+		else
+		{
+			arr[y][x] = 'x';
+			push_to_queue(&head, x + 1, y + 1, arr);
+			push_to_queue(&head, x + 1, y, arr);
+			push_to_queue(&head, x, y + 1, arr);
+			push_to_queue(&head, x - 1, y - 1, arr);
+			push_to_queue(&head, x - 1, y + 1, arr);
+			push_to_queue(&head, x + 1, y - 1, arr);
+			push_to_queue(&head, x - 1, y, arr);
+			push_to_queue(&head, x, y - 1, arr);
+		}
 	}
-	if (arr[i][j] == '1' || arr[i][j] == 'x')
-		return ;
-	if (arr[i][j] != 'v')
-	{
-		game->map.is_valid = 0;
-		return ;
-	}
-	arr[i][j] = 'x';
-	flood_walls_check(arr, i + 1, j + 1, game);
-	flood_walls_check(arr, i - 1, j + 1, game);
-	flood_walls_check(arr, i + 1, j, game);
-	flood_walls_check(arr, i - 1, j, game);
-	flood_walls_check(arr, i - 1, j - 1, game);
-	flood_walls_check(arr, i + 1, j - 1, game);
-	flood_walls_check(arr, i, j + 1, game);
-	flood_walls_check(arr, i, j - 1, game);
+	return (1);
 }
 
 int	surrended_walls_check(char **arr)

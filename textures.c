@@ -17,7 +17,7 @@ void	load_texs(t_game *g)
 		g->texs[i].img = mlx_xpm_file_to_image(g->mlx, paths[i],
 				&g->texs[i].width, &g->texs[i].height);
 		if (!g->texs[i].img)
-			error_exit("Texture load failed");
+			error_exit(g, "Texture load failed");
 		g->texs[i].addr = mlx_get_data_addr(g->texs[i].img,
 				&g->texs[i].bpp, &g->texs[i].line_len, &g->texs[i].endian);
 	}
