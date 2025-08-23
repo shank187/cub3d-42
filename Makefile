@@ -21,7 +21,7 @@ SRCS        = raycasting.c \
               parsing_utils_3.c \
               parsing_utils_4.c \
               addons.c \
-              testing.c utils_door.c utils_minimap.c
+              testing.c utils_door.c utils_minimap.c movment_utils.c raycasting_utils.c 
 
 OBJS        = $(SRCS:.c=.o)
 
