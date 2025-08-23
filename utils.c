@@ -1,48 +1,5 @@
 #include "cub.h"
 
-void	*ft_memset(void *b, int c, size_t len)
-{
-	unsigned char	*a;
-	size_t			i;
-
-	i = 0;
-	a = (unsigned char *)b;
-	while (i < len)
-	{
-		a[i] = (unsigned char)c;
-		i++;
-	}
-	return (b);
-}
-
-void	pixel_put(t_img *img, int x, int y, int color)
-{
-	char	*dst;
-
-	if (x < 0 || x >= SCREEN_WIDTH || y < 0 || y >= SCREEN_HEIGHT)
-		return ;
-	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
-	*(unsigned int *)dst = color;
-}
-
-void	error_exit(t_game *g, char *msg)
-{
-	int	i;
-
-	i = -1;
-	while (++i < 5)
-		if (g->texs[i].img)
-			mlx_destroy_image(g->mlx, g->texs[i].img);
-	if (g->img.img)
-		mlx_destroy_image(g->mlx, g->img.img);
-	if (g->win)
-		mlx_destroy_window(g->mlx, g->win);
-	printf("%s\n", msg);
-	exit (1);
-}
-
-
-
 void	init_game(t_game *g)
 {
 	g->mlx = mlx_init();
@@ -59,8 +16,8 @@ void	init_game(t_game *g)
 	g->img.img = mlx_new_image(g->mlx, g->scr_w, g->scr_h);
 	g->img.addr = mlx_get_data_addr(g->img.img, &g->img.bpp,
 			&g->img.line_len, &g->img.endian);
-	g->horse.img = mlx_xpm_file_to_image(g->mlx, g->horse.texture, 
-								&g->horse.width, &g->horse.height);;
+	g->horse.img = mlx_xpm_file_to_image(g->mlx, g->horse.texture,
+			&g->horse.width, &g->horse.height);
 	g->closed_door = NULL;
 	g->key_w = 0;
 	g->key_a = 0;
@@ -72,7 +29,6 @@ void	init_game(t_game *g)
 
 int	key_press(int key, t_game *g)
 {
-	// printf("%i\n", key);
 	if (key == KEY_ESC || key == 53)
 		close_win(g);
 	else if (key == KEY_W || key == MLX_KEY_W)
@@ -107,13 +63,10 @@ int	key_release(int key, t_game *g)
 	return (0);
 }
 
-
-
-
-void mini_map(t_game *game)
+void	mini_map(t_game *game)
 {
-	t_minimap v;
-	
+	t_minimap	v;
+
 	init_minimap(&v, game);
 	draw_minimap_grid(game, &v);
 	draw_player_dot(game, &v);
@@ -139,22 +92,5 @@ int	game_loop(t_game *g)
 		render_horse_sprite(g);
 		mlx_put_image_to_window(g->mlx, g->win, g->img.img, 0, 0);
 	}
-	return (0);
-}
-
-int	close_win(t_game *g)
-{
-	int	i;
-
-	i = -1;
-	while (++i < 5)
-		if (g->texs[i].img)
-			mlx_destroy_image(g->mlx, g->texs[i].img);
-	if (g->img.img)
-		mlx_destroy_image(g->mlx, g->img.img);
-	if (g->win)
-		mlx_destroy_window(g->mlx, g->win);
-	free_all_doors(&g->closed_door);
-	exit(0);
 	return (0);
 }

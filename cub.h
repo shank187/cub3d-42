@@ -224,6 +224,7 @@ void init_minimap(t_minimap *v, t_game *game);
 
 void free_all_doors(t_door **head);
 void	open_the_door(t_game *game);
+void	add_door_to_end(t_door **head, int x, int y);
 
 
 size_t			ft_strlen(const char *s);

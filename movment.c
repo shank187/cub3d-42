@@ -5,8 +5,8 @@ int	is_wall(t_game *g, double x, double y)
 	int	map_x;
 	int	map_y;
 
-	map_x = (int)x;
-	map_y = (int)y;
+	map_x = floor(x);
+	map_y = floor(y);
 	if (map_x < 0 || map_y < 0 || map_x >= g->map_w || map_y >= g->map_h)
 		return (1);
 	return (g->map.grid[map_y][map_x] == '1');
