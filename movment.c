@@ -1,16 +1,34 @@
 #include "cub.h"
 
+#define COLLISION_MARGIN 0.1
+
 int	is_wall(t_game *g, double x, double y)
 {
 	int	map_x;
 	int	map_y;
 
-	map_x = (int)x;
-	map_y = (int)y;
-	if (map_x < 0 || map_y < 0 || map_x >= g->map_w || map_y >= g->map_h)
+	if (x - COLLISION_MARGIN < 0 || y - COLLISION_MARGIN < 0
+		|| x + COLLISION_MARGIN >= g->map_w || y + COLLISION_MARGIN >= g->map_h)
 		return (1);
-	return (g->map.grid[map_y][map_x] == '1');
+	map_x = (int)(x - COLLISION_MARGIN);
+	map_y = (int)(y - COLLISION_MARGIN);
+	if (g->map.grid[map_y][map_x] == '1')
+		return (1);
+	map_x = (int)(x + COLLISION_MARGIN);
+	map_y = (int)(y - COLLISION_MARGIN);
+	if (g->map.grid[map_y][map_x] == '1')
+		return (1);
+	map_x = (int)(x - COLLISION_MARGIN);
+	map_y = (int)(y + COLLISION_MARGIN);
+	if (g->map.grid[map_y][map_x] == '1')
+		return (1);
+	map_x = (int)(x + COLLISION_MARGIN);
+	map_y = (int)(y + COLLISION_MARGIN);
+	if (g->map.grid[map_y][map_x] == '1')
+		return (1);
+	return (0);
 }
+
 
 int	handle_movement(t_game *g, double move_speed)
 {
