@@ -300,4 +300,7 @@ int		handle_rotation(t_game *g, double rot_speed);
 
 void mini_map(t_game *game);
 
+void	handle_wasd(t_game *g, double move_speed, double *x, double *y);
+int	map_g(t_ray *r, t_game *g);
+
 #endif
