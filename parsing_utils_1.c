@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 09:43:04 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/21 10:55:03 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/22 12:45:50 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	clean_parsing_stuff(t_game *game)
 	free(game->tex.so);
 	free(game->tex.no);
 	free(game->tex.we);
-	// free(game->tex.door);
 	i = -1;
 	while (game->map.grid && game->map.grid[++i])
 	{

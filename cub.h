@@ -162,6 +162,7 @@ typedef struct s_game
 	int				slide_right;
 	void		*mlx;
 	void		*win;
+	char		**arr;
 	t_img		img;
 	// t_player	p;
 	t_textures	tex;
@@ -236,8 +237,7 @@ char			*ft_strjoin(char const *s1, char const *s2, t_game *game);
 char			**ft_split(char const *s, char c, t_game *game);
 char			*ft_substr(char const *s, unsigned int start, \
 	size_t len, t_game *game);
-void			flood_walls_check(char **arr, int i, int j, t_game *game);
-int	surrended_walls_check(char **arr);
+int				surrended_walls_check(char **arr);
 char			*ft_strchr(const char *s, int c);
 char			*get_next_line(int fd, t_game *game);
 // void			find_angle(t_game *game);
@@ -262,6 +262,7 @@ int				mouse_move(int x, int y, void *param);
 char			**padding_char_2d(char **map, t_game *game);
 int				validate_doors(char **arr);
 int				iter_flood_check(char **arr, int x, int y, t_game *game);
+int				is_wall(t_game *g, double x, double y);
 
 // double find_angle(char direction);
 void	free_2d_arr(char **str);
