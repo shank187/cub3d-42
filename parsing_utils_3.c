@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:22:33 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/24 10:22:51 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/24 11:43:58 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	**parse_map(char *str, t_game *game)
 	if (!map)
 		return (free_2d_arr(initial_map), NULL);
 	free_2d_arr(map);
-	ft_replace_chr(NULL, initial_map, ' ', '0');
+	ft_replace_chr(NULL, initial_map, ' ', '1');
 	if (!validate_doors(initial_map))
 		return (free_2d_arr(initial_map), NULL);
 	ft_fix_sizes(initial_map, 'v', game);
