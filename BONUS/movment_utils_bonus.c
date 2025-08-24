@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   movment_utils.c                                    :+:      :+:    :+:   */
+/*   movment_utils_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-had <abel-had@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 10:56:21 by abel-had          #+#    #+#             */
-/*   Updated: 2025/08/24 10:56:22 by abel-had         ###   ########.fr       */
+/*   Updated: 2025/08/24 13:24:11 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "cub_bonus.h"
 
 void	handle_wasd(t_game *g, double move_speed, double *x, double *y)
 {

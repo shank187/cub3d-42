@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_minimap.c                                    :+:      :+:    :+:   */
+/*   utils_minimap_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-had <abel-had@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 10:52:37 by abel-had          #+#    #+#             */
-/*   Updated: 2025/08/24 10:52:38 by abel-had         ###   ########.fr       */
+/*   Updated: 2025/08/24 13:25:11 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "cub_bonus.h"
 
 void	init_minimap(t_minimap *v, t_game *game)
 {
