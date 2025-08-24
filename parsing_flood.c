@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 10:03:56 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/24 10:20:11 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/24 12:43:59 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	iter_flood_check(char **arr, int x, int y, t_game *game)
 		y = head->y;
 		pop_from_queue(&head);
 		if (!process_neighbors(&head, x, y, game))
-			return (0);
+			return (clean_queue(&head), 0);
 	}
 	return (1);
 }
