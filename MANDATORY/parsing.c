@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-had <abel-had@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:25:08 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/24 13:35:30 by abel-had         ###   ########.fr       */
+/*   Updated: 2025/08/24 14:14:11 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,7 @@ int	main(int ac, char **av)
 	t_game	game;
 
 	ft_memset(&game, 0, sizeof(game));
-	if (parse_inputs(&game, ac, av))
-		show_data_strored(&game);
-	else
+	if (!parse_inputs(&game, ac, av))
 		return (1);
 	init_game(&game);
 	game.map_h = map_h(game.map);

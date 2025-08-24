@@ -6,7 +6,7 @@
 #    By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/20 12:00:00 by aelbour           #+#    #+#              #
-#    Updated: 2025/08/24 13:43:52 by aelbour          ###   ########.fr        #
+#    Updated: 2025/08/24 14:15:42 by aelbour          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,8 +43,7 @@ MANDATORY_SRCS = \
 	MANDATORY/utils.c \
 	MANDATORY/utils2.c \
 	MANDATORY/utils3.c \
-	MANDATORY/utils_door.c \
-	MANDATORY/utils_minimap.c
+	MANDATORY/utils_door.c 
 
 # Source files for the bonus part
 BONUS_SRCS = \
@@ -80,11 +79,9 @@ BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(MANDATORY_OBJS)
-	$(MAKE) -C $(MLX_DIR)
 	$(CC) $(CFLAGS) $(MANDATORY_OBJS) -L$(MLX_DIR) $(MLX_FLAGS) -o $(NAME)
 
 bonus: $(BONUS_OBJS)
-	$(MAKE) -C $(MLX_DIR)
 	$(CC) $(CFLAGS) $(BONUS_OBJS) -L$(MLX_DIR) $(MLX_FLAGS) -o $(NAME)
 
 %.o: %.c
