@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:22:33 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/23 11:02:49 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/23 11:50:35 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ static void	set_player_position(char **map, t_game *game)
 			if (map[i][j] == 'N' || map[i][j] == 'S' || \
 				map[i][j] == 'E' || map[i][j] == 'W')
 			{
-				game->player.x = j - 0.5;
-				game->player.y = i - 0.5;
-				map[(int)(game->player.y + 0.5)][(int)(game->player.x + 0.5)] = '0';
+				game->player.x = j + 0.5;
+				game->player.y = i + 0.5;
+				map[i][j] = '0';
 				found = 1;
 			}
 			j++;
@@ -92,7 +92,7 @@ char	**parse_map(char *str, t_game *game)
 	if (!map)
 		return (free_2d_arr(initial_map), NULL);
 	set_player_position(map, game);
-	initial_map[(int)(game->player.y + 0.5)][(int)(game->player.x + 0.5)] = '0';
+	initial_map[(int)(game->player.y)][(int)(game->player.x)] = '0';
 	free_2d_arr(map);
 	ft_replace_chr(NULL, initial_map, ' ', '0');
 	if (!validate_doors(initial_map))
