@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-had <abel-had@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:25:08 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/23 10:09:57 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/24 10:45:51 by abel-had         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,38 +33,7 @@ with the .cub extension as first argument.\n", 2);
 	return (0);
 }
 
-int	map_h(t_map map)
-{
-	int	i;
-
-	i = 0;
-	while (map.grid[i])
-		i++;
-	return (i);
-}
-
-int	map_w(t_map map)
-{
-	int	i;
-	int	j;
-	int	max;
-
-	i = 0;
-	j = 0;
-	max = 0;
-	while (map.grid[i])
-	{
-		j = 0;
-		while (map.grid[i][j])
-			j++;
-		if (j > max)
-			max = j;
-		i++;
-	}
-	return (max);
-}
-
-void	init_player_direction(t_game *game)
+int init_p_d_ns(t_game *game)
 {
 	if (game->player.dir == 'N')
 	{
@@ -72,6 +41,7 @@ void	init_player_direction(t_game *game)
 		game->player.dir_y = 1.0;
 		game->player.plane_x = 0.66;
 		game->player.plane_y = 0.0;
+		return (1);
 	}
 	else if (game->player.dir == 'S')
 	{
@@ -79,15 +49,25 @@ void	init_player_direction(t_game *game)
 		game->player.dir_y = -1.0;
 		game->player.plane_x = -0.66;
 		game->player.plane_y = 0.0;
+		return (1);
 	}
-	else if (game->player.dir == 'E')
+	return (0);
+}
+
+void	init_player_direction(t_game *game)
+{
+	int	a;
+
+	a = init_p_d_ns(game);
+	
+	if (game->player.dir == 'E' && a == 0)
 	{
 		game->player.dir_x = 1.0;
 		game->player.dir_y = 0.0;
 		game->player.plane_x = 0.0;
 		game->player.plane_y = -0.66;
 	}
-	else if (game->player.dir == 'W')
+	else if (game->player.dir == 'W' && a == 0)
 	{
 		game->player.dir_x = -1.0;
 		game->player.dir_y = 0.0;
