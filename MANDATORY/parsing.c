@@ -6,7 +6,7 @@
 /*   By: abel-had <abel-had@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:25:08 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/24 12:41:58 by abel-had         ###   ########.fr       */
+/*   Updated: 2025/08/24 13:06:14 by abel-had         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,17 +75,11 @@ void	init_player_direction(t_game *game)
 	}
 }
 
-// void    leaks(void)
-// {
-//     system("leaks cub3D");
-// }
 
-void f();
 int	main(int ac, char **av)
 {
 	t_game	game;
 
-	atexit(f);
 	ft_memset(&game, 0, sizeof(game));
 	if (parse_inputs(&game, ac, av))
 		show_data_strored(&game);
@@ -107,9 +101,4 @@ int	main(int ac, char **av)
 	mlx_loop_hook(game.mlx, game_loop, &game);
 	mlx_loop(game.mlx);
 	return (0);
-}
-
-void f()
-{
-	system("leaks -q cub3D");
 }
