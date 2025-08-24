@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:22:33 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/23 11:50:35 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/24 10:22:51 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,24 +91,15 @@ char	**parse_map(char *str, t_game *game)
 	map = ft_split(str, '\n', game);
 	if (!map)
 		return (free_2d_arr(initial_map), NULL);
-	set_player_position(map, game);
-	initial_map[(int)(game->player.y)][(int)(game->player.x)] = '0';
 	free_2d_arr(map);
 	ft_replace_chr(NULL, initial_map, ' ', '0');
 	if (!validate_doors(initial_map))
-	{
-		printf("doors invalid\n");
 		return (free_2d_arr(initial_map), NULL);
-	}
 	ft_fix_sizes(initial_map, 'v', game);
 	map = padding_char_2d(initial_map, game);
+	set_player_position(map, game);
 	free_2d_arr(initial_map);
 	if (!iter_flood_check(map, 0, 0, game))
-	{
-		int i = -1;
-		while(map[++i])
-			printf("%s\n", map[i]);		
 		return (free_2d_arr(map), NULL);
-	}
 	return (map);
 }

@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 11:02:06 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/20 11:25:51 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/24 10:26:07 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,27 @@ int	validate_doors(char **arr)
 	return (1);
 }
 
+void	filling_sides(char **new_map, char **map, t_game *game)
+{
+	int		i;
+	char	*tmp;
+
+	i = -1;
+	while (map[++i])
+	{
+		new_map[i + 1] = ft_strjoin(map[i], "v", game);
+		tmp = new_map[i + 1];
+		new_map[i + 1] = ft_strjoin("v", tmp, game);
+		free(tmp);
+	}
+}
+
 char	**padding_char_2d(char **map, t_game *game)
 {
 	int		i;
 	char	*fill_start;
 	char	*fill_end;
 	char	**new_map;
-	char	*tmp;
 
 	i = -1;
 	while (map[++i])
@@ -62,13 +76,6 @@ char	**padding_char_2d(char **map, t_game *game)
 	new_map[0] = fill_start;
 	new_map[i + 1] = fill_end;
 	new_map[i + 2] = NULL;
-	i = -1;
-	while (map[++i])
-	{
-		new_map[i + 1] = ft_strjoin(map[i], "v", game);
-		tmp = new_map[i + 1];
-		new_map[i + 1] = ft_strjoin("v", tmp, game);
-		free(tmp);
-	}
+	filling_sides(new_map, map, game);
 	return (new_map);
 }

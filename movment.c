@@ -1,7 +1,5 @@
 #include "cub.h"
 
-#define COLLISION_MARGIN 0.1
-
 int	is_wall(t_game *g, double x, double y)
 {
 	int	map_x;

@@ -37,12 +37,12 @@
 # define MLX_KEY_RIGHT  124
 
 # define BUFFER_SIZE 1000
+# define COLLISION_MARGIN 0.2
 
-
-#define WALL_COLOR 0xFFFFFF
-#define FLOOR_COLOR 0x000000 
-#define PLAYER_COLOR 0xFF0000
-#define DOOR_COLOR 0x8B4513
+# define WALL_COLOR 0xFFFFFF
+# define FLOOR_COLOR 0x000000 
+# define PLAYER_COLOR 0xFF0000
+# define DOOR_COLOR 0x8B4513
 // #define MINIMAP_S 
 
 typedef struct s_horse
