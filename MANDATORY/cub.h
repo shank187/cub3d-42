@@ -6,7 +6,7 @@
 /*   By: abel-had <abel-had@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 10:50:46 by abel-had          #+#    #+#             */
-/*   Updated: 2025/08/24 10:50:47 by abel-had         ###   ########.fr       */
+/*   Updated: 2025/08/24 13:35:19 by abel-had         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,30 +53,6 @@
 # define FLOOR_COLOR 0x000000
 # define PLAYER_COLOR 0xFF0000
 # define DOOR_COLOR 0x8B4513
-
-typedef struct s_horse
-{
-	void	*img;
-	int		width;
-	int		height;
-	int		pos_x;
-	int		pos_y;
-	int		x;
-	int		y;
-	int		dx;
-	int		dy;
-	int		horse_color;
-	int		t;
-	int		base_pos_y;
-	int		bpp;
-	int		line_len;
-	int		endian;
-	int		scale;
-	int		screen_x;
-	int		screen_y;
-	int		*horse_data;
-	char	*texture;
-}	t_horse;
 
 typedef struct s_img
 {
@@ -159,7 +135,6 @@ typedef struct s_game
 {
 	t_player		player;
 	t_map			map;
-	t_horse			horse;
 	unsigned int	floor_color;
 	unsigned int	ceiling_color;
 	int				slide_left;
@@ -201,26 +176,6 @@ typedef struct s_split
 	t_game		*game;
 }	t_split;
 
-typedef struct s_minimap
-{
-	int	minimap_w;
-	int	minimap_h;
-	int	start_x;
-	int	start_y;
-	int	minigrid_w;
-	int	minigrid_h;
-	int	map_y;
-	int	player_screen_x;
-	int	player_screen_y;
-	int	dot_size;
-	int	py;
-	int	px;
-}	t_minimap;
-
-void			mini_map(t_game *game);
-void			draw_player_dot(t_game *game, t_minimap *v);
-void			draw_minimap_grid(t_game *game, t_minimap *v);
-void			init_minimap(t_minimap *v, t_game *game);
 void			free_all_doors(t_door **head);
 void			open_the_door(t_game *game);
 void			add_door_to_end(t_door **head, int x, int y);

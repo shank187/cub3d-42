@@ -22,7 +22,7 @@ SRCS        = raycasting.c \
               parsing_utils_4.c \
               addons.c \
               parsing_flood.c \
-              testing.c utils_door.c utils_minimap.c movment_utils.c raycasting_utils.c utils2.c utils3.c 
+              testing.c utils_door.c movment_utils.c raycasting_utils.c utils2.c utils3.c 
 
 OBJS        = $(SRCS:.c=.o)
 

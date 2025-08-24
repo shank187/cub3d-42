@@ -6,7 +6,7 @@
 /*   By: abel-had <abel-had@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:25:08 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/24 13:06:14 by abel-had         ###   ########.fr       */
+/*   Updated: 2025/08/24 13:35:30 by abel-had         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void	init_player_direction(t_game *game)
 	}
 }
 
-
 int	main(int ac, char **av)
 {
 	t_game	game;
@@ -91,8 +90,6 @@ int	main(int ac, char **av)
 	init_player_direction(&game);
 	load_texs(&game);
 	raycast(&game);
-	mini_map(&game);
-	render_horse_sprite(&game);
 	mlx_put_image_to_window(game.mlx, game.win, game.img.img, 0, 0);
 	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
 	mlx_hook(game.win, 3, 1L << 1, key_release, &game);
