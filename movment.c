@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   movment.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abel-had <abel-had@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/24 10:55:04 by abel-had          #+#    #+#             */
+/*   Updated: 2025/08/24 10:56:06 by abel-had         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub.h"
 
 int	is_wall(t_game *g, double x, double y)
@@ -26,7 +38,6 @@ int	is_wall(t_game *g, double x, double y)
 		return (1);
 	return (0);
 }
-
 
 int	handle_movement(t_game *g, double move_speed)
 {
