@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-had <abel-had@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:25:08 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/24 10:55:28 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/24 12:41:58 by abel-had         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ with the .cub extension as first argument.\n", 2);
 
 int	init_p_d_ns(t_game *game)
 {
-	if (game->player.dir == 'N')
+	if (game->player.dir == 'S')
 	{
 		game->player.dir_x = 0.0;
 		game->player.dir_y = 1.0;
@@ -43,7 +43,7 @@ int	init_p_d_ns(t_game *game)
 		game->player.plane_y = 0.0;
 		return (1);
 	}
-	else if (game->player.dir == 'S')
+	else if (game->player.dir == 'N')
 	{
 		game->player.dir_x = 0.0;
 		game->player.dir_y = -1.0;
@@ -59,14 +59,14 @@ void	init_player_direction(t_game *game)
 	int	a;
 
 	a = init_p_d_ns(game);
-	if (game->player.dir == 'E' && a == 0)
+	if (game->player.dir == 'W' && a == 0)
 	{
 		game->player.dir_x = 1.0;
 		game->player.dir_y = 0.0;
 		game->player.plane_x = 0.0;
 		game->player.plane_y = -0.66;
 	}
-	else if (game->player.dir == 'W' && a == 0)
+	else if (game->player.dir == 'E' && a == 0)
 	{
 		game->player.dir_x = -1.0;
 		game->player.dir_y = 0.0;
@@ -80,10 +80,12 @@ void	init_player_direction(t_game *game)
 //     system("leaks cub3D");
 // }
 
+void f();
 int	main(int ac, char **av)
 {
 	t_game	game;
 
+	atexit(f);
 	ft_memset(&game, 0, sizeof(game));
 	if (parse_inputs(&game, ac, av))
 		show_data_strored(&game);
@@ -105,4 +107,9 @@ int	main(int ac, char **av)
 	mlx_loop_hook(game.mlx, game_loop, &game);
 	mlx_loop(game.mlx);
 	return (0);
+}
+
+void f()
+{
+	system("leaks -q cub3D");
 }
