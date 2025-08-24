@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-had <abel-had@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:25:08 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/24 10:45:51 by abel-had         ###   ########.fr       */
+/*   Updated: 2025/08/24 10:55:28 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ with the .cub extension as first argument.\n", 2);
 	return (0);
 }
 
-int init_p_d_ns(t_game *game)
+int	init_p_d_ns(t_game *game)
 {
 	if (game->player.dir == 'N')
 	{
@@ -59,7 +59,6 @@ void	init_player_direction(t_game *game)
 	int	a;
 
 	a = init_p_d_ns(game);
-	
 	if (game->player.dir == 'E' && a == 0)
 	{
 		game->player.dir_x = 1.0;
@@ -76,16 +75,15 @@ void	init_player_direction(t_game *game)
 	}
 }
 
-void    leaks(void)
-{
-    system("leaks cub3D");
-}
+// void    leaks(void)
+// {
+//     system("leaks cub3D");
+// }
 
 int	main(int ac, char **av)
 {
 	t_game	game;
 
-	
 	ft_memset(&game, 0, sizeof(game));
 	if (parse_inputs(&game, ac, av))
 		show_data_strored(&game);
