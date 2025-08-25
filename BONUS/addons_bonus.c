@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   addons_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-had <abel-had@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 08:59:24 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/24 14:16:21 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/25 10:22:27 by abel-had         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	draw_my_horse(t_game *game, t_horse *h)
 	}
 }
 
-void    render_horse_sprite(t_game *game)
+void	render_horse_sprite(t_game *game)
 {
 	t_horse	*h;
 

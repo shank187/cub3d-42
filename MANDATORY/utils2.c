@@ -6,7 +6,7 @@
 /*   By: abel-had <abel-had@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 10:52:28 by abel-had          #+#    #+#             */
-/*   Updated: 2025/08/24 10:52:29 by abel-had         ###   ########.fr       */
+/*   Updated: 2025/08/25 10:20:52 by abel-had         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ void	error_exit(t_game *g, char *msg)
 		mlx_destroy_image(g->mlx, g->img.img);
 	if (g->win)
 		mlx_destroy_window(g->mlx, g->win);
-	printf("%s\n", msg);
+	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd(msg, 2);
+	ft_putstr_fd("\n", 2);
 	exit (1);
 }

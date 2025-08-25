@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   cub_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-had <abel-had@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:19:01 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/24 14:19:21 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/25 10:22:43 by abel-had         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef CUB_BONUS_H
 # define CUB_BONUS_H
