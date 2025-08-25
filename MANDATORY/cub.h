@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-had <abel-had@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 10:50:46 by abel-had          #+#    #+#             */
-/*   Updated: 2025/08/24 13:35:19 by abel-had         ###   ########.fr       */
+/*   Updated: 2025/08/25 11:45:07 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@
 # define MLX_KEY_RIGHT 124
 
 # define BUFFER_SIZE 1000
-# define COLLISION_MARGIN 0.2
+# define COLLISION_MARGIN 0.1
 
 # define WALL_COLOR 0xFFFFFF
 # define FLOOR_COLOR 0x000000
