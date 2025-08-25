@@ -6,7 +6,7 @@
 /*   By: abel-had <abel-had@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 10:52:31 by abel-had          #+#    #+#             */
-/*   Updated: 2025/08/24 13:32:51 by abel-had         ###   ########.fr       */
+/*   Updated: 2025/08/25 10:52:37 by abel-had         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,16 @@
 void	init_game(t_game *g)
 {
 	g->mlx = mlx_init();
+	if (!g->mlx)
+		error_exit(g, "mlx_init failed");
 	g->scr_w = SCREEN_WIDTH;
 	g->scr_h = SCREEN_HEIGHT;
 	g->win = mlx_new_window(g->mlx, g->scr_w, g->scr_h, "cub3D");
 	g->img.img = mlx_new_image(g->mlx, g->scr_w, g->scr_h);
 	g->img.addr = mlx_get_data_addr(g->img.img, &g->img.bpp,
 			&g->img.line_len, &g->img.endian);
+	if (!g->img.addr)
+		error_exit(g, "mlx_get_data_addr failed");
 	g->closed_door = NULL;
 	g->key_w = 0;
 	g->key_a = 0;
@@ -81,7 +85,8 @@ int	game_loop(t_game *g)
 	{
 		open_the_door(g);
 		raycast(g);
-		mlx_put_image_to_window(g->mlx, g->win, g->img.img, 0, 0);
+		if (mlx_put_image_to_window(g->mlx, g->win, g->img.img, 0, 0) != 0)
+			error_exit(g, "mlx_put_image_to_window failed");
 	}
 	return (0);
 }
