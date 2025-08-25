@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   addons_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-had <abel-had@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 08:59:24 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/25 10:22:27 by abel-had         ###   ########.fr       */
+/*   Updated: 2025/08/25 11:20:18 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ void	render_horse_sprite(t_game *game)
 										&game->horse.bpp, \
 										&game->horse.line_len, \
 										&game->horse.endian);
+	if (!h->horse_data)
+		return (clean_parsing_stuff(game), ft_putstr_fd \
+		("Error\nfailed to get data\n", 2), exit(1));
 	h->y = 0;
 	while (h->y < game->horse.height)
 	{

@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 11:02:06 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/24 13:24:35 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/25 10:48:29 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,15 @@ char	**padding_char_2d(char **map, t_game *game)
 	while (map[++i])
 		;
 	fill_start = malloc(ft_strlen(map[0]) + (2) + 1);
+	fill_end = malloc(ft_strlen(map[0]) + (2) + 1);
+	new_map = malloc (sizeof(char *) * (i + 3));
+	if (!fill_end || !fill_start || !new_map)
+		return (clean_parsing_stuff(game), \
+		ft_putstr_fd("Error\n malloc failed", 2), exit(1), NULL);
 	ft_memset(fill_start, 'v', ft_strlen(map[0]) + (2));
 	fill_start[ft_strlen(map[0]) + (2)] = 0;
-	fill_end = malloc(ft_strlen(map[0]) + (2) + 1);
 	ft_memset(fill_end, 'v', ft_strlen(map[0]) + (2));
 	fill_end[ft_strlen(map[0]) + (2)] = 0;
-	new_map = malloc (sizeof(char *) * (i + 3));
 	new_map[0] = fill_start;
 	new_map[i + 1] = fill_end;
 	new_map[i + 2] = NULL;
