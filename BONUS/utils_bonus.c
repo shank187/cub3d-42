@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-had <abel-had@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 10:52:31 by abel-had          #+#    #+#             */
-/*   Updated: 2025/08/24 13:25:01 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/25 10:59:55 by abel-had         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	init_game(t_game *g)
 	g->img.img = mlx_new_image(g->mlx, g->scr_w, g->scr_h);
 	g->img.addr = mlx_get_data_addr(g->img.img, &g->img.bpp,
 			&g->img.line_len, &g->img.endian);
+	if (!g->img.addr)
+		error_exit(g, "mlx_get_data_addr failed");
 	g->horse.img = mlx_xpm_file_to_image(g->mlx, g->horse.texture,
 			&g->horse.width, &g->horse.height);
 	g->closed_door = NULL;
@@ -102,7 +104,8 @@ int	game_loop(t_game *g)
 		mini_map(g);
 		animated_sprite(g);
 		render_horse_sprite(g);
-		mlx_put_image_to_window(g->mlx, g->win, g->img.img, 0, 0);
+		if (mlx_put_image_to_window(g->mlx, g->win, g->img.img, 0, 0) != 0)
+			error_exit(g, "mlx_put_image_to_window failed");
 	}
 	return (0);
 }
