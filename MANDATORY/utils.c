@@ -6,7 +6,7 @@
 /*   By: abel-had <abel-had@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 10:52:31 by abel-had          #+#    #+#             */
-/*   Updated: 2025/08/25 10:52:37 by abel-had         ###   ########.fr       */
+/*   Updated: 2025/08/25 11:26:51 by abel-had         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	game_loop(t_game *g)
 	{
 		open_the_door(g);
 		raycast(g);
-		if (mlx_put_image_to_window(g->mlx, g->win, g->img.img, 0, 0) != 0)
+		if (mlx_put_image_to_window(g->mlx, g->win, g->img.img, 0, 0) == 0)
 			error_exit(g, "mlx_put_image_to_window failed");
 	}
 	return (0);
