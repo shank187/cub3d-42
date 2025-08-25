@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-had <abel-had@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:25:08 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/24 14:20:30 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/08/25 11:44:34 by abel-had         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,23 @@ void	init_player_direction(t_game *game)
 	}
 }
 
+void	setup_mlx_hooks(t_game *game)
+{
+	if (mlx_put_image_to_window(game->mlx, game->win
+			, game->img.img, 0, 0) == -1)
+		error_exit(game, "mlx_put_image_to_window failed");
+	if (mlx_hook(game->win, 2, 1L << 0, key_press, game) == -1)
+		error_exit(game, "mlx_hook failed");
+	if (mlx_hook(game->win, 3, 1L << 1, key_release, game) == -1)
+		error_exit(game, "mlx_hook failed");
+	if (mlx_hook(game->win, 6, (1L << 6), mouse_move, game) == -1)
+		error_exit(game, "mlx_hook failed");
+	if (mlx_hook(game->win, 17, 0, close_win, game) == -1)
+		error_exit(game, "mlx_hook failed");
+	if (mlx_loop_hook(game->mlx, game_loop, game) == -1)
+		error_exit(game, "mlx_loop_hook failed");
+}
+
 int	main(int ac, char **av)
 {
 	t_game	game;
@@ -90,12 +107,7 @@ int	main(int ac, char **av)
 	raycast(&game);
 	mini_map(&game);
 	render_horse_sprite(&game);
-	mlx_put_image_to_window(game.mlx, game.win, game.img.img, 0, 0);
-	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
-	mlx_hook(game.win, 3, 1L << 1, key_release, &game);
-	mlx_hook(game.win, 6, (1L << 6), mouse_move, &game);
-	mlx_hook(game.win, 17, 0, close_win, &game);
-	mlx_loop_hook(game.mlx, game_loop, &game);
+	setup_mlx_hooks(&game);
 	mlx_loop(game.mlx);
 	return (0);
 }
