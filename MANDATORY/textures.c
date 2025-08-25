@@ -6,7 +6,7 @@
 /*   By: abel-had <abel-had@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 10:52:44 by abel-had          #+#    #+#             */
-/*   Updated: 2025/08/24 13:04:55 by abel-had         ###   ########.fr       */
+/*   Updated: 2025/08/25 10:09:19 by abel-had         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	load_texs(t_game *g)
 	char	*paths[5];
 	int		i;
 
-	g->tex.door = "../textures/door.xpm";
+	g->tex.door = "./textures/door.xpm";
 	paths[0] = g->tex.no;
 	paths[1] = g->tex.so;
 	paths[2] = g->tex.we;
