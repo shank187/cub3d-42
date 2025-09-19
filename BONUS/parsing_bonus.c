@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:25:08 by aelbour           #+#    #+#             */
-/*   Updated: 2025/09/19 15:33:19 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/09/19 15:38:09 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,6 @@ int	main(int ac, char **av)
 	render_horse_sprite(&game);
 	setup_mlx_hooks(&game);
 	mlx_loop(game.mlx);
+	close(game.fd_config);
 	return (0);
 }

@@ -1,14 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils2_bonus.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/24 10:52:28 by abel-had          #+#    #+#             */
-/*   Updated: 2025/09/19 15:33:51 by aelbour          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #include "cub_bonus.h"
 
@@ -36,7 +26,7 @@ void	add_door_to_end(t_door **head, int x, int y)
 
 	new_door = malloc(sizeof(t_door));
 	if (!new_door)
-		return ;
+		error_exit(NULL, "malloc failed") ;
 	new_door->x = x;
 	new_door->y = y;
 	new_door->next = NULL;

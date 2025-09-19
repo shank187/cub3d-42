@@ -6,7 +6,7 @@
 /*   By: abel-had <abel-had@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 10:52:28 by abel-had          #+#    #+#             */
-/*   Updated: 2025/08/25 10:20:52 by abel-had         ###   ########.fr       */
+/*   Updated: 2025/08/25 12:43:11 by abel-had         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	add_door_to_end(t_door **head, int x, int y)
 
 	new_door = malloc(sizeof(t_door));
 	if (!new_door)
-		return ;
+		error_exit(NULL, "malloc failed");
 	new_door->x = x;
 	new_door->y = y;
 	new_door->next = NULL;
