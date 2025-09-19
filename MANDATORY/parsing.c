@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-had <abel-had@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:25:08 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/25 11:44:26 by abel-had         ###   ########.fr       */
+/*   Updated: 2025/09/19 15:24:06 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ with the .cub extension as first argument.\n", 2);
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
 		return (ft_putstr_fd("Error\nInvalid file.\n", 2), 0);
+	game->fd_config = fd;
 	if (extract_and_store_data(fd, game))
 		return (clean_data(game), 1);
 	return (0);

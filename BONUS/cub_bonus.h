@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:19:01 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/25 11:44:56 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/09/19 15:27:53 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ typedef struct s_game
 	t_player		player;
 	t_map			map;
 	t_horse			horse;
+	int				fd_config;
 	unsigned int	floor_color;
 	unsigned int	ceiling_color;
 	int				slide_left;

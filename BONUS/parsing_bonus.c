@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-had <abel-had@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:25:08 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/25 11:44:34 by abel-had         ###   ########.fr       */
+/*   Updated: 2025/09/19 15:33:19 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ with the .cub extension as first argument.\n", 2);
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
 		return (ft_putstr_fd("Error\nInvalid file.\n", 2), 0);
+	game->fd_config = fd;
 	if (extract_and_store_data(fd, game))
 		return (clean_data(game), 1);
 	return (0);
@@ -79,7 +80,7 @@ void	setup_mlx_hooks(t_game *game)
 {
 	if (mlx_put_image_to_window(game->mlx, game->win
 			, game->img.img, 0, 0) == -1)
-		error_exit(game, "mlx_put_image_to_window failed");
+		error_(game, "mlx_put_image_to_window failed");
 	if (mlx_hook(game->win, 2, 1L << 0, key_press, game) == -1)
 		error_exit(game, "mlx_hook failed");
 	if (mlx_hook(game->win, 3, 1L << 1, key_release, game) == -1)

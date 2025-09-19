@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-had <abel-had@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 10:52:28 by abel-had          #+#    #+#             */
-/*   Updated: 2025/08/25 10:21:00 by abel-had         ###   ########.fr       */
+/*   Updated: 2025/09/19 15:33:51 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,10 @@ void	error_exit(t_game *g, char *msg)
 		mlx_destroy_image(g->mlx, g->img.img);
 	if (g->win)
 		mlx_destroy_window(g->mlx, g->win);
+	close(g->fd_config);
 	ft_putstr_fd("Error\n", 2);
 	ft_putstr_fd(msg, 2);
 	ft_putstr_fd("\n", 2);
+	close(g->fd_config);
 	exit (1);
 }

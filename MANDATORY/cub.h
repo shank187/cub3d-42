@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 10:50:46 by abel-had          #+#    #+#             */
-/*   Updated: 2025/08/25 11:45:07 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/09/19 15:23:17 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ typedef struct s_door
 
 typedef struct s_game
 {
+	int				fd_config;
 	t_player		player;
 	t_map			map;
 	unsigned int	floor_color;

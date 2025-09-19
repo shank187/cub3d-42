@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:01:26 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/24 10:56:03 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/09/19 15:25:44 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,6 @@ void	*extract_and_store_data(int fd, t_game *game)
 	game->map.grid = parse_map(map, game);
 	if (!game->map.grid)
 		return (ft_putstr_fd("Error\nINVALID MAP!!.\n", 2), \
-		free(map), exit(1), NULL);
+		free(map), close(game->fd_config), exit(1), NULL);
 	return (free(map), game);
 }
