@@ -6,7 +6,7 @@
 /*   By: aelbour <aelbour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:22:33 by aelbour           #+#    #+#             */
-/*   Updated: 2025/08/24 11:43:58 by aelbour          ###   ########.fr       */
+/*   Updated: 2025/09/19 15:57:41 by aelbour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	is_valid_map_char(char c)
 {
 	return (c == '1' || c == '0' || c == '\n' || c == ' ' || \
-			c == 'N' || c == 'S' || c == 'E' || c == 'W' || c == '2');
+			c == 'N' || c == 'S' || c == 'E' || c == 'W');
 }
 
 static int	set_player_direction(char c, t_game *game)
